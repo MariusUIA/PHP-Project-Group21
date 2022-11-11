@@ -24,6 +24,8 @@ CREATE TABLE listings (
     listingAddress VARCHAR(100) NOT NULL,
     listingRooms INT NOT NULL,
     listingType VARCHAR(45) NOT NULL,
+    listingPrice INT NOT NULL,
+    listingArea INT NOT NULL,
     petAllowed TINYINT NOT NULL DEFAULT 0,
     hasParking TINYINT NOT NULL DEFAULT 0,
     hasShed TINYINT NOT NULL DEFAULT 0,
@@ -61,3 +63,13 @@ CREATE TABLE messages (
     FOREIGN KEY (recieverID) references user(userID) ON DELETE CASCADE,
     FOREIGN KEY (senderID) references user(userID) ON DELETE CASCADE
 );
+
+INSERT INTO user (email, firstName, lastName, pass, birthDate, phone, isAdmin, study, isStudent)
+VALUES (
+    'test@test.com', 'Ola', 'Pettersen', 'test123', '2001-11-11 00:00:00', 123456789, 1, 'IT and Informationsystems', 0
+);
+
+INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking, hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke, forMen, forWomen, userID)
+VALUES (
+    'Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0
+)

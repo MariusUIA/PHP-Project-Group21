@@ -42,6 +42,7 @@ mysqli_close($connection);
 <head>
 </head>
 <body>
+DEFAULT LOGIN: test@test.com og passord test123.
 <form action='Login.php' method='post'>
     <label for='email'>Email: </label>
     <input name='email' type='text' /><br>

@@ -37,11 +37,11 @@ if (isset($_POST['registrer'])) {
         $sql = "SELECT email FROM user WHERE email = '$epost'";
         $result = $connection->query($sql);
         if($result->num_rows == 0) {
-            echo "Ditt fornavn er " . ($_POST['fnavn'] . "</br>");
-            echo "Ditt etternavn er " . ($_POST['enavn'] . "</br>");
-            echo "Din epost er " . ($_POST['epost'] . "</br>");
-            echo "Ditt telefonnummer er " . ($_POST['tlf'] . "</br>");
-            echo "Din fødselsdato er " . ($_POST['fdato'] . "</br>");
+            echo "Ditt fornavn er " . $fnavn . "</br>";
+            echo "Ditt etternavn er " . $enavn . "</br>";
+            echo "Din epost er " . $epost . "</br>";
+            echo "Ditt telefonnummer er " . $tlf . "</br>";
+            echo "Din fødselsdato er " . $student . "</br>";
 
             $hashed = password_hash($pass, PASSWORD_DEFAULT);
 
