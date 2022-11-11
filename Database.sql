@@ -1,9 +1,9 @@
 create database if not exists phpprosjekt;
 use phpprosjekt;
 
+DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     userID int(11) NOT NULL AUTO_INCREMENT,
-    userName varchar(64) NOT NULL,
     email varchar(256) NOT NULL,
     firstName varchar(64) NOT NULL,
     lastName varchar(64) NOT NULL,
@@ -16,6 +16,7 @@ CREATE TABLE user (
     PRIMARY KEY (userID)
 );
 
+DROP TABLE IF EXISTS listings;
 CREATE TABLE listings (
     listingID INT NOT NULL AUTO_INCREMENT,
     listingTitle VARCHAR(45) NOT NULL,
@@ -36,9 +37,12 @@ CREATE TABLE listings (
     canSmoke TINYINT NOT NULL DEFAULT 0,
     forMen TINYINT NOT NULL DEFAULT 0,
     forWomen TINYINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (listingID)
+    userID INT NOT NULL,
+    PRIMARY KEY (listingID),
+    FOREIGN KEY (userID) references user(userID)
 );
 
+DROP TABLE IF EXISTS listingImages;
 CREATE TABLE listingImages (
     listingImgID INT NOT NULL AUTO_INCREMENT,
     listingImgDesc VARCHAR(64),
@@ -47,6 +51,7 @@ CREATE TABLE listingImages (
     FOREIGN KEY (listingID) references Listings(listingID) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
     messageID INT NOT NULL AUTO_INCREMENT,
     messageText VARCHAR(500) NOT NULL,

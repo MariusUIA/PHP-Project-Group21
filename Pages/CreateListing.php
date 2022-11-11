@@ -7,9 +7,9 @@ if(!isset($_SESSION["user"])) {
 }
 
 if(isset($_REQUEST["create_listing_btn"])) {
-    $title = filter_var($_REQUEST["title"], FILTER_SANITIZE_STRING);
-    $description = filter_var($_REQUEST["description"], FILTER_SANITIZE_STRING);
-    $address = filter_var($_REQUEST["address"], FILTER_SANITIZE_STRING);
+    $title = filter_var($_REQUEST["title"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
+    $description = filter_var($_REQUEST["description"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
+    $address = filter_var($_REQUEST["address"]);
     $rooms = filter_var($_REQUEST["rooms"], FILTER_SANITIZE_SPECIAL_CHARS);
     $type = filter_var($_REQUEST["type"]);
 
