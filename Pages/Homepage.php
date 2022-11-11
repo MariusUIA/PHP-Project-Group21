@@ -2,8 +2,8 @@
 session_start();
 
 if(!isset($_SESSION["user"])) {
-    header("location: index.php?msg");
+    header("location: ErrorPage.php");
 }
-echo $_SESSION["user"]["username"];
+echo $_SESSION["user"]["email"];
 
-echo "<a href='Logout.php'>Log out</a>";
+echo "<p><a href='Logout.php'>Log out</a></p>";

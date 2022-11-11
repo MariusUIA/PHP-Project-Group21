@@ -1,76 +1,97 @@
+<html lang="">
+<head>
+    <title>Registrering av bruker</title>
+</head>
+<body>
+<pre>
+<form method="post" action="">
+  Fornavn: <input type="text" name="fnavn" placeholder="Fornavn"><br>
+  Etternavn: <input type="text" name="enavn" placeholder="Etternavn"><br>
+  E-post: <input type="email" name="epost" placeholder="E-post"><br>
+  Passord: <input type="password" name="pass" placeholder="Passord"><br>
+  Telefon: <input type="tel" name="tlf" placeholder="Mobilnummer"><br>
+  Fødselsdato: <input type="date" name="fdato" value="yyyy-mm-dd"><br>
+  Student? <input type="checkbox" name="student"><br>
+  <input type="submit" name="registrer" value="Registrer">
+</form>
+</pre>
 <?php
 include_once "../Utilities/DatabaseConnection.php";
 
 session_start();
-if(isset($_SESSION["user"])) {
-    header("location: homePage.php");
-}
 
-if(isset($_REQUEST["register_btn"])) {
-    $username = filter_var($_REQUEST["username"], FILTER_SANITIZE_STRING);
-    $email = filter_var($_REQUEST["email"], FILTER_SANITIZE_EMAIL);
-    $password = strip_tags($_REQUEST["password"]);
+//Kjører koden hvis HTML knappen "registrer" har blitt trykket på.
+if (isset($_POST['registrer'])) {
+    //Hvis ingen av feltene er tomme, lagrer koden brukerinformasjonen i array og skriver.
+    if (!empty($_POST['pass']) && !empty($_POST['fnavn']) && !empty($_POST['enavn']) && !empty($_POST['epost']) && !empty($_POST['tlf']) && !empty($_POST['fdato'])) {
 
-    if (empty($username)) {
-        $errorMsg[0][] = "Name Required";
-    }
-    if (empty($email)) {
-        $errorMsg[1][] = "Email Required";
-    }
-    if (empty($password)) {
-        $errorMsg[2][] = "Password Required";
-    }
-    if(empty($errorMsg)) {
 
-        $sql = "SELECT email FROM users WHERE email = '$email'";
+        $pass = strip_tags($_POST['pass']);
+        $fnavn = $_POST['fnavn'];
+        $enavn = $_POST['enavn'];
+        $epost = filter_var($_POST['epost'], FILTER_SANITIZE_EMAIL);
+        $tlf = $_POST['tlf'];
+        $dato = $_POST['fdato'];
+        $student = $_POST['student'];
+
+        $sql = "SELECT email FROM user WHERE email = '$epost'";
         $result = $connection->query($sql);
         if($result->num_rows == 0) {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO users (username,password,email) 
-                VALUES ('$username', '$hashed_password', '$email')";
-            $connection->query($sql);
-            header("location: index.php");
+            echo "Ditt fornavn er " . ($_POST['fnavn'] . "</br>");
+            echo "Ditt etternavn er " . ($_POST['enavn'] . "</br>");
+            echo "Din epost er " . ($_POST['epost'] . "</br>");
+            echo "Ditt telefonnummer er " . ($_POST['tlf'] . "</br>");
+            echo "Din fødselsdato er " . ($_POST['fdato'] . "</br>");
+
+            $hashed = password_hash($pass, PASSWORD_DEFAULT);
+
+            $sql = "INSERT INTO user 
+        (pass, firstName, lastName, email, phone, birthDate, isStudent) 
+        VALUES 
+        (?, ?, ?, ?, ?, ?, ?)";
+
+            $test = $connection->prepare($sql);
+            $test->bind_param('ssssisi', $hashed, $fnavn, $enavn, $epost, $tlf, $dato, $student);
+            $test->execute();
+            header("location: Login.php");
         } else {
-            $errorMsg[1][] = "Email already taken";
+            echo("Bruker finnes allerede");
         }
+    } else {
+        /*Hvis en eller flere felt var tomme, kommer denne feilmeldingen først.
+        Deretter, sjekker koden hva som manglet og skriver dette. */
+        echo "<p>FEIL! Følgende informasjon mangler, og bruker ble derfor ikke opprettet. </p>";
+    }
+    if (empty($_POST['pass'])) {
+        echo "Passord mangler </br>";
+    }
+
+    if (empty($_POST['unavn'])) {
+        echo "Brukernavn mangler </br>";
+    }
+
+    if (empty($_POST['fnavn'])) {
+        echo "fornavn mangler </br>";
+    }
+
+    if (empty($_POST['enavn'])) {
+        echo "etternavn mangler </br>";
+    }
+
+    if (empty($_POST['epost'])) {
+        echo "epost mangler </br>";
+    }
+
+    if (empty($_POST['tlf'])) {
+        echo "telefonnummer mangler </br>";
+    }
+
+    if (empty($_POST['fdato'])) {
+        echo "fødselsdato mangler </br>";
     }
 }
+mysqli_close($connection);
+
 ?>
-<html>
-<head>
-</head>
-<body>
-<form action='register.php' method='post'>
-
-    <?php
-    if(isset($errorMsg[0])) {
-        foreach($errorMsg[0] as $usernameErrors) {
-            echo "<p>$usernameErrors</p>";
-        }
-    }
-    if(isset($errorMsg[1])) {
-        foreach($errorMsg[1] as $emailErrors) {
-            echo "<p>$emailErrors</p>";
-        }
-    }
-    if(isset($errorMsg[2])) {
-        foreach($errorMsg[2] as $passwordErrors) {
-            echo "<p>$passwordErrors</p>";
-        }
-    }
-    ?>
-
-    <label for='username'>Username: </label>
-    <input name='username' type='text' maxlength="64" /><br>
-
-    <label for='email'>Email: </label>
-    <input name='email' type='text' maxlength="256" /><br>
-
-    <label for='password'>Password: </label>
-    <input name='password' type='password' maxlength="256" minlength="6" /><br>
-
-    <button type='submit' name="register_btn">Register</button>
-</form>
 </body>
 </html>
-
