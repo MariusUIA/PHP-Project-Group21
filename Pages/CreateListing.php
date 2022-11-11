@@ -11,6 +11,8 @@ if(isset($_REQUEST["create_listing_btn"])) {
     $description = filter_var($_REQUEST["description"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
     $address = filter_var($_REQUEST["address"]);
     $rooms = filter_var($_REQUEST["rooms"], FILTER_SANITIZE_SPECIAL_CHARS);
+    $price = filter_var($_REQUEST["price"], FILTER_SANITIZE_SPECIAL_CHARS);
+    $area = filter_var($_REQUEST["area"], FILTER_SANITIZE_SPECIAL_CHARS);
     $type = filter_var($_REQUEST["type"]);
 
     $petAllowed = (isset($_REQUEST["petAllowed"]));
@@ -57,14 +59,14 @@ if(isset($_REQUEST["create_listing_btn"])) {
 
 
 if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['rooms'])) {
-    $sql = "INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, petAllowed, hasParking,
+    $sql = "INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking,
                       hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke,
                       forMen, forWomen, userID)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?)";
     $userID = $_SESSION["user"]["userID"];
 
     $test = $connection->prepare($sql);
-    $test->bind_param('sssisbbbbbbbbbbbbbi', $title, $description, $address, $rooms, $type, $petAllowed,
+    $test->bind_param('sssisiibbbbbbbbbbbbbi', $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
         $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
         $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen, $userID);
     $test->execute();
@@ -93,6 +95,14 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     <label for='rooms'>Nr of rooms: </label>
     <input name='rooms' type='number' maxlength="64" minlength="1" />
     <?php if(isset($rooms)) {echo "<span>Nr of roms Required</span>";} ?><br>
+
+    <label for='price'>Nr of rooms: </label>
+    <input name='price' type='number' maxlength="64" minlength="1" />
+    <?php if(isset($price)) {echo "<span>Monthly cost</span>";} ?><br>
+
+    <label for='area'>Nr of rooms: </label>
+    <input name='area' type='number' maxlength="64" minlength="1" />
+    <?php if(isset($area)) {echo "<span>Square meters</span>";} ?><br>
 
     <label for='type'>Type: </label>
     <select name="type" id="type">
@@ -140,7 +150,7 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     <input type="checkbox" id="forWomen" name="forWomen" value="yes"><br>
 
     <label for="imageUpload">Upload Image</label>
-    <input type="file" name="imageUpload" id="imageUpload">
+    <input type="file" name="imageUpload" id="imageUpload"><br>
 
     <button type='submit' name="create_listing_btn">Register</button>
 </form>
