@@ -6,6 +6,7 @@ if(!isset($_SESSION["user"])) {
     header("location: Login.php?msg");
 }
 
+
 if(isset($_REQUEST["create_listing_btn"])) {
     $title = filter_var($_REQUEST["title"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
     $description = filter_var($_REQUEST["description"], FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
@@ -54,7 +55,6 @@ if(isset($_REQUEST["create_listing_btn"])) {
     $forWomen = (isset($_REQUEST["forWomen"]));
     if($forWomen) {$forWomen = true;} else {$forWomen = false;}
 
-
 }
 
 
@@ -70,6 +70,23 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
         $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
         $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen, $userID);
     $test->execute();
+
+    $sql = "SELECT * FROM listings ORDER BY listingID DESC";
+
+    $result = $connection->query($sql);
+    if($result->num_rows > 0) {
+        $test = mysqli_fetch_array($result);
+
+        $target_dir = "../images/";
+        $arr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
+        $target_file = $target_dir . $test[0] . "." . $arr[1];
+
+        move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
+    }
+
+
+
+
 }
 
 ?>
@@ -78,7 +95,7 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 <head>
 </head>
 <body>
-<form action='CreateListing.php' method='post'>
+<form action='CreateListing.php' method='post' enctype="multipart/form-data">
 
     <label for='title'>Title: </label>
     <input name='title' type='text' maxlength="264" />
@@ -96,13 +113,13 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     <input name='rooms' type='number' maxlength="64" minlength="1" />
     <?php if(isset($rooms)) {echo "<span>Nr of roms Required</span>";} ?><br>
 
-    <label for='price'>Nr of rooms: </label>
+    <label for='price'>Monthly cost: </label>
     <input name='price' type='number' maxlength="64" minlength="1" />
-    <?php if(isset($price)) {echo "<span>Monthly cost</span>";} ?><br>
+    <?php if(isset($price)) {echo "<span>Monthly cost required</span>";} ?><br>
 
-    <label for='area'>Nr of rooms: </label>
+    <label for='area'>Square meters: </label>
     <input name='area' type='number' maxlength="64" minlength="1" />
-    <?php if(isset($area)) {echo "<span>Square meters</span>";} ?><br>
+    <?php if(isset($area)) {echo "<span>Square meters required</span>";} ?><br>
 
     <label for='type'>Type: </label>
     <select name="type" id="type">
