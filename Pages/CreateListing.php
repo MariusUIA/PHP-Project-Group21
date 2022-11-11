@@ -59,13 +59,14 @@ if(isset($_REQUEST["create_listing_btn"])) {
 if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['rooms'])) {
     $sql = "INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, petAllowed, hasParking,
                       hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke,
-                      forMen, forWomen)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                      forMen, forWomen, userID)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $userID = $_SESSION["user"]["userID"];
 
     $test = $connection->prepare($sql);
-    $test->bind_param('sssisbbbbbbbbbbbbb', $title, $description, $address, $rooms, $type, $petAllowed,
+    $test->bind_param('sssisbbbbbbbbbbbbbi', $title, $description, $address, $rooms, $type, $petAllowed,
         $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
-        $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen);
+        $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen, $userID);
     $test->execute();
 }
 
@@ -137,6 +138,9 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 
     <label for="forWomen">For women</label>
     <input type="checkbox" id="forWomen" name="forWomen" value="yes"><br>
+
+    <label for="imageUpload">Upload Image</label>
+    <input type="file" name="imageUpload" id="imageUpload">
 
     <button type='submit' name="create_listing_btn">Register</button>
 </form>

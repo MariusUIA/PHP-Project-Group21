@@ -27,6 +27,7 @@ if(isset($_REQUEST["login_button"])) {
             while($row = $result->fetch_assoc()) {
                 if(password_verify($pass, $row["pass"])) {
                     $_SESSION["user"]["email"] = $row["email"];
+                    $_SESSION["user"]["userID"] = $row["userID"];
                     header("location: Homepage.php");
                 } else {
                     echo "<p>Wrong email or password</p>";
