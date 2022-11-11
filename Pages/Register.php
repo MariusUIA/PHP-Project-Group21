@@ -5,13 +5,13 @@
 <body>
 <pre>
 <form method="post" action="">
-    Brukernavn: <input type="text" name="unavn" placeholder="Brukernavn"><br>
-    Passord: <input type="text" name="pass" placeholder="Passord"><br>
   Fornavn: <input type="text" name="fnavn" placeholder="Fornavn"><br>
   Etternavn: <input type="text" name="enavn" placeholder="Etternavn"><br>
   E-post: <input type="email" name="epost" placeholder="E-post"><br>
+  Passord: <input type="password" name="pass" placeholder="Passord"><br>
   Telefon: <input type="tel" name="tlf" placeholder="Mobilnummer"><br>
   Fødselsdato: <input type="date" name="fdato" value="yyyy-mm-dd"><br>
+  Student? <input type="checkbox" name="student"><br>
   <input type="submit" name="registrer" value="Registrer">
 </form>
 </pre>
@@ -23,23 +23,20 @@ session_start();
 //Kjører koden hvis HTML knappen "registrer" har blitt trykket på.
 if (isset($_POST['registrer'])) {
     //Hvis ingen av feltene er tomme, lagrer koden brukerinformasjonen i array og skriver.
-    if (!empty($_POST['unavn']) && !empty($_POST['pass']) && !empty($_POST['fnavn']) && !empty($_POST['enavn']) && !empty($_POST['epost']) && !empty($_POST['tlf']) && !empty($_POST['fdato'])) {
+    if (!empty($_POST['pass']) && !empty($_POST['fnavn']) && !empty($_POST['enavn']) && !empty($_POST['epost']) && !empty($_POST['tlf']) && !empty($_POST['fdato'])) {
 
 
-
-
-        $unavn = $_POST['unavn'];
-        $pass = $_POST['pass'];
+        $pass = strip_tags($_POST['pass']);
         $fnavn = $_POST['fnavn'];
         $enavn = $_POST['enavn'];
-        $epost = $_POST['epost'];
+        $epost = filter_var($_POST['epost'], FILTER_SANITIZE_EMAIL);
         $tlf = $_POST['tlf'];
         $dato = $_POST['fdato'];
+        $student = $_POST['student'];
 
-        $sql = "SELECT firstName FROM user WHERE firstName = '$fnavn'";
+        $sql = "SELECT email FROM user WHERE email = '$epost'";
         $result = $connection->query($sql);
         if($result->num_rows == 0) {
-            echo "Ditt brukernavn er " . ($_POST['unavn'] . "</br>");
             echo "Ditt fornavn er " . ($_POST['fnavn'] . "</br>");
             echo "Ditt etternavn er " . ($_POST['enavn'] . "</br>");
             echo "Din epost er " . ($_POST['epost'] . "</br>");
@@ -49,16 +46,16 @@ if (isset($_POST['registrer'])) {
             $hashed = password_hash($pass, PASSWORD_DEFAULT);
 
             $sql = "INSERT INTO user 
-        (userName, pass, firstName, lastName, email, phone, birthDate) 
+        (pass, firstName, lastName, email, phone, birthDate, isStudent) 
         VALUES 
         (?, ?, ?, ?, ?, ?, ?)";
 
             $test = $connection->prepare($sql);
-            $test->bind_param('sssssis', $unavn, $hashed, $fnavn, $enavn, $epost, $tlf, $dato);
+            $test->bind_param('ssssisi', $hashed, $fnavn, $enavn, $epost, $tlf, $dato, $student);
             $test->execute();
             header("location: Login.php");
         } else {
-            echo("Brukernavn finnes allerede");
+            echo("Bruker finnes allerede");
         }
     } else {
         /*Hvis en eller flere felt var tomme, kommer denne feilmeldingen først.
