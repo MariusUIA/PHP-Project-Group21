@@ -78,8 +78,10 @@ INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, l
 VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1);
 
 INSERT INTO messages (messageText, messageTime, recieverID, senderID)
-VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:43:22', 1, 2),
-       ('Åja er du det, så kult å høre!', '2022-09-09 12:33:22', 2, 1),
+VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:03:22', 1, 2),
+       ('Åja er du det, så kult å høre!', '2022-09-09 12:13:22', 2, 1),
+       ('Jepp det er veldig kult, når kan jeg kjøpe den?', '2022-09-09 12:23:22', 1, 2),
+       ('Den kan du kjøpe snart, eller noe', '2022-09-09 12:43:22', 2, 1),
        ('Hallo hallo hallo!', '2022-09-09 12:13:22', 3, 1),
        ('Hei på deg hvordan går det??', '2022-09-09 12:03:22', 1, 3),
        ('Hus er kult, ditt hus er kult', '2022-09-09 13:23:22', 2, 3);

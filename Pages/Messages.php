@@ -23,7 +23,8 @@ if (!isset($rArray)){
 $recieverName = implode(" ", $rArray);
 
 
-$messages = mysqli_query($connection,"SELECT messageText, recieverID, senderID FROM Messages where senderID = $senderID AND recieverID = $recieverID ORDER BY messageID");
+$messages = mysqli_query($connection,"SELECT messageText, messageTime, recieverID, senderID FROM Messages WHERE
+           (recieverID = $recieverID AND senderID = $senderID) OR (senderID = $recieverID AND recieverID = $senderID) ORDER BY messageTime");
 
 ?>
 <html lang="NO">
@@ -39,14 +40,16 @@ $messages = mysqli_query($connection,"SELECT messageText, recieverID, senderID F
             <th></th>
         </tr>
         <?php
-        while($rows=$messages->fetch_assoc())
-        {
-            ?>
-            <tr>
-                <td><?php echo $rows['messageText'];?></td>
-            </tr>
-            <?php
+        while($rows=$messages->fetch_assoc()){
+            if ($rows['senderID'] == $recieverID){
+                echo '<a>' . $recieverName. '</a></br>';// trenger CSS for å plassere til venstre
+            } elseif ($rows['senderID'] == $senderID){
+                echo '<a>' . $senderName. '</a></br>'; // trenger CSS for å plassere til høyre
+            }
+            echo '<a> ' .$rows['messageText'].'</a></br>';
+            echo '</br>';
         }
+
         ?>
     </table>
 </section>
