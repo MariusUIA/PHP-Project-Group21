@@ -1,7 +1,7 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
+include_once "../Utilities/SessionHandler.php";
 
-session_start();
 $userID = $_SESSION["user"]["userID"];
 
 $sql = "SELECT * FROM listings WHERE userID = $userID";
@@ -11,6 +11,7 @@ if (isset($_GET['button'])) {
     header("location: ListingDetails.php?listingID=" . $_GET['button']);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -45,6 +46,7 @@ if (isset($_GET['button'])) {
 
 
     </style>
+
 </head>
 <body>
 <main>

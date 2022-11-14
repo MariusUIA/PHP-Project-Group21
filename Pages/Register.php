@@ -1,6 +1,6 @@
 <html lang="">
 <head>
-    <title>Registrering av bruker</title>
+    <title>Registrering</title>
 </head>
 <body>
 <pre>
@@ -17,8 +17,7 @@
 </pre>
 <?php
 include_once "../Utilities/DatabaseConnection.php";
-
-session_start();
+session_start(); //Ikke include, denne siden må være tilgjengelig
 
 //Kjører koden hvis HTML knappen "registrer" har blitt trykket på.
 if (isset($_POST['registrer'])) {

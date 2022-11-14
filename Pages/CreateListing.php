@@ -1,10 +1,6 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
-
-session_start();
-if(!isset($_SESSION["user"])) {
-    header("location: Login.php?msg");
-}
+include_once "../Utilities/SessionHandler.php";
 
 
 if(isset($_REQUEST["create_listing_btn"])) {
@@ -87,8 +83,9 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 
 ?>
 
-<html>
+<html lang="NO">
 <head>
+    <title>Lag Annonse</title>
 </head>
 <body>
 <form action='CreateListing.php' method='post' enctype="multipart/form-data">
