@@ -17,43 +17,43 @@ if(isset($_REQUEST["create_listing_btn"])) {
     $type = filter_var($_REQUEST["type"]);
 
     $petAllowed = (isset($_REQUEST["petAllowed"]));
-    if($petAllowed) {$petAllowed = true;} else {$petAllowed = false;}
+    if($petAllowed) {$petAllowed = 1;} else {$petAllowed = 0;}
 
     $hasParking = (isset($_REQUEST["hasParking"]));
-    if($hasParking) {$hasParking = true;} else {$hasParking = false;}
+    if($hasParking) {$hasParking = 1;} else {$hasParking = 0;}
 
     $hasShed = (isset($_REQUEST["hasShed"]));
-    if($hasShed) {$hasShed = true;} else {$hasShed = false;}
+    if($hasShed) {$hasShed = 1;} else {$hasShed = 0;}
 
     $isFurnished = (isset($_REQUEST["isFurnished"]));
-    if($isFurnished) {$isFurnished = true;} else {$isFurnished = false;}
+    if($isFurnished) {$isFurnished = 1;} else {$isFurnished = 0;}
 
     $hasAppliances = (isset($_REQUEST["hasAppliances"]));
-    if($hasAppliances) {$hasAppliances = true;} else {$hasAppliances = false;}
+    if($hasAppliances) {$hasAppliances = 1;} else {$hasAppliances = 0;}
 
     $hasBalcony = (isset($_REQUEST["hasBalcony"]));
-    if($hasBalcony) {$hasBalcony = true;} else {$hasBalcony = false;}
+    if($hasBalcony) {$hasBalcony = 1;} else {$hasBalcony = 0;}
 
     $hasGarden = (isset($_REQUEST["hasGarden"]));
-    if($hasGarden) {$hasGarden = true;} else {$hasGarden = false;}
+    if($hasGarden) {$hasGarden = 1;} else {$hasGarden = 0;}
 
     $wcFriendly = (isset($_REQUEST["wcFriendly"]));
-    if($wcFriendly) {$wcFriendly = true;} else {$wcFriendly = false;}
+    if($wcFriendly) {$wcFriendly = 1;} else {$wcFriendly = 0;}
 
     $incElectricity = (isset($_REQUEST["incElectricity"]));
-    if($incElectricity) {$incElectricity = true;} else {$incElectricity = false;}
+    if($incElectricity) {$incElectricity = 1;} else {$incElectricity = 0;}
 
     $incWifi = (isset($_REQUEST["incWifi"]));
-    if($incWifi) {$incWifi = true;} else {$incWifi = false;}
+    if($incWifi) {$incWifi = 1;} else {$incWifi = 0;}
 
     $canSmoke = (isset($_REQUEST["canSmoke"]));
-    if($canSmoke) {$canSmoke = true;} else {$canSmoke = false;}
+    if($canSmoke) {$canSmoke = 1;} else {$canSmoke = 0;}
 
     $forMen = (isset($_REQUEST["forMen"]));
-    if($forMen) {$forMen = true;} else {$forMen = false;}
+    if($forMen) {$forMen = 1;} else {$forMen = 0;}
 
     $forWomen = (isset($_REQUEST["forWomen"]));
-    if($forWomen) {$forWomen = true;} else {$forWomen = false;}
+    if($forWomen) {$forWomen = 1;} else {$forWomen = 0;}
 
 }
 
@@ -66,7 +66,7 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     $userID = $_SESSION["user"]["userID"];
 
     $test = $connection->prepare($sql);
-    $test->bind_param('sssisiibbbbbbbbbbbbbi', $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
+    $test->bind_param('sssisiiiiiiiiiiiiiiii', $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
         $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
         $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen, $userID);
     $test->execute();
@@ -83,10 +83,6 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 
         move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
     }
-
-
-
-
 }
 
 ?>
