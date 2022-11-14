@@ -1,14 +1,12 @@
 <?php
-session_start();
+include_once "../Utilities/SessionHandler.php";
 
-if(!isset($_SESSION["user"])) {
-    header("location: ErrorPage.php");
-}
 echo $_SESSION["user"]["email"];
 
 ?>
-<html>
+<html lang="NO">
 <head>
+    <title>Hjemmeside</title>
 </head>
 <body>
 <p><a href='Inbox.php'>Inbox</a></p>

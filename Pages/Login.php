@@ -1,12 +1,6 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
-
-session_start();
-if(isset($_GET['msg']))
-{
-    $message = "You need to be logged in to access that page";
-    echo $message;
-}
+include_once "../Utilities/SessionHandler.php";
 
 if(isset($_SESSION["user"])) header("location: Homepage.php");
 
@@ -38,8 +32,9 @@ if(isset($_REQUEST["login_button"])) {
 }
 mysqli_close($connection);
 ?>
-<html>
+<html lang="NO">
 <head>
+    <title>Login</title>
 </head>
 <body>
 DEFAULT LOGIN: test@test.com og passord test123.

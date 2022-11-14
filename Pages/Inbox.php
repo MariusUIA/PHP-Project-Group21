@@ -1,7 +1,8 @@
 <?php
 //side som viser hvem som man har fått melding fra, som da sender til "Messages.php" med riktig bruker.
 include_once "../Utilities/DatabaseConnection.php";
-session_start();
+include_once "../Utilities/SessionHandler.php";
+
 if (isset($_GET['button'])) {
     header("location: Messages.php?senderID=" . $_GET['button']);
 }
@@ -27,9 +28,9 @@ function getUserInfo($senderID, $recieverID, $connection): void{
 
 ?>
 
-<html lang="en">
-
+<html lang="NO">
 <head>
+    <title>Inboks</title>
 </head>
 <body>
 <section>
