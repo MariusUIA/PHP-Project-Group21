@@ -1,7 +1,7 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
+include_once "../Utilities/SessionHandler.php";
 
-session_start();
 $userID = $_SESSION["user"]["userID"];
 
 $sql = "SELECT * FROM listings WHERE userID = $userID";
@@ -12,8 +12,9 @@ if (isset($_GET['button'])) {
 }
 ?>
 
-<html>
+<html lang="NO">
 <head>
+    <title>Mine annonser</title>
     <link rel="stylesheet" href="../css/MyListings.css" media="screen">
 </head>
 <body>

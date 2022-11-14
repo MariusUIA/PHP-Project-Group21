@@ -10,11 +10,11 @@ if (isset($_GET['button'])) {
 
 ?>
 
-<html lang="en">
+<html lang="NO">
 
 <head>
     <meta charset="UTF-8">
-    <title>GFG User Details</title>
+    <title>Annonser</title>
     <!-- CSS FOR STYLING THE PAGE -->
     <style>
         table {

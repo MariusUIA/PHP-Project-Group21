@@ -61,6 +61,7 @@ CREATE TABLE listingImages (
 CREATE TABLE messages (
     messageID INT NOT NULL AUTO_INCREMENT,
     messageText VARCHAR(500) NOT NULL,
+    messageTime DATETIME NOT NULL,
     recieverID INT NOT NULL,
     senderID INT NOT NULL,
     PRIMARY KEY (messageID),
@@ -76,9 +77,10 @@ VALUES ('test@test.com', 'Ola', 'Pettersen', '$2y$10$9RrqR0Y37OMmiwEjJxLCoOfZHY2
 INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking, hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke, forMen, forWomen, userID)
 VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1);
 
-INSERT INTO messages (messageText, recieverID, senderID)
-VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', 1, 2),
-       ('Åja er du det, så kult å høre!', 2, 1),
-       ('Hallo hallo hallo!', 3, 1),
-       ('Hei på deg hvordan går det??', 1, 3),
-       ('Hus er kult, ditt hus er kult', 2, 3);
+
+INSERT INTO messages (messageText, messageTime, recieverID, senderID)
+VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:43:22', 1, 2),
+       ('Åja er du det, så kult å høre!', '2022-09-09 12:33:22', 2, 1),
+       ('Hallo hallo hallo!', '2022-09-09 12:13:22', 3, 1),
+       ('Hei på deg hvordan går det??', '2022-09-09 12:03:22', 1, 3),
+       ('Hus er kult, ditt hus er kult', '2022-09-09 13:23:22', 2, 3);
