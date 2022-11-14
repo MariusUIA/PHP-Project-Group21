@@ -6,4 +6,15 @@ if(!isset($_SESSION["user"])) {
 }
 echo $_SESSION["user"]["email"];
 
-echo "<p><a href='Logout.php'>Log out</a></p>";
+?>
+<html>
+<head>
+</head>
+<body>
+<p><a href='Inbox.php'>Inbox</a></p>
+<p><a href='Listings.php'>Listings</a></p>
+<p><a href='CreateListing.php'>Create listing</a></p>
+<p><a href='MyListings.php'>My listings</a></p>
+<p><a href='Logout.php'>Log out</a></p>
+</body>
+</html>
