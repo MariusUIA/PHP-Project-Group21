@@ -22,6 +22,7 @@ if(isset($_REQUEST["login_button"])) {
                 if(password_verify($pass, $row["pass"])) {
                     $_SESSION["user"]["email"] = $row["email"];
                     $_SESSION["user"]["userID"] = $row["userID"];
+                    $_SESSION["user"]["isStudent"] = $row["isStudent"];
                     header("location: Homepage.php");
                 } else {
                     echo "<p>Wrong email or password</p>";
@@ -37,8 +38,8 @@ mysqli_close($connection);
     <title>Login</title>
 </head>
 <body>
-DEFAULT LOGIN: test@test.com og passord test123.
-DEFAULT LOGIN 2: test2@test.com og passord test2
+DEFAULT LOGIN: test@test.com og passord test123. </br>
+DEFAULT LOGIN 2: test2@test.com og passord test2. </br>
 <form action='Login.php' method='post'>
     <label for='email'>Email: </label>
     <input name='email' type='text' /><br>

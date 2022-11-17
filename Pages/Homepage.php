@@ -1,7 +1,8 @@
 <?php
 include_once "../Utilities/SessionHandler.php";
+include_once "../Utilities/Header.php";
 
-echo $_SESSION["user"]["email"];
+echo '<p>' . $_SESSION["user"]["email"] . '</p>';
 
 ?>
 <html lang="NO">
