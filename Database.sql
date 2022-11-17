@@ -71,7 +71,7 @@ CREATE TABLE messages (
 
 INSERT INTO user (email, firstName, lastName, pass, birthDate, phone, isAdmin, study, isStudent)
 VALUES ('test@test.com', 'Ola', 'Pettersen', '$2y$10$9RrqR0Y37OMmiwEjJxLCoOfZHY2XaAWZVCn92Pla2qSLe11fZQgNi', '2001-11-11 00:00:00', 123456789, 1, 'IT and Informassjonsystemer', 0),
-       ('test2@test.com', 'Petter', 'Olavson', '$2y$10$jUBZOi/EIr5EqDJ8L7WEEeY1nzAr3zcjziiiCNKPcvXDzc62Q2jci', '2001-01-01 00:00:00', 098765432, 0, 'Mattematikk', 1),
+       ('test2@test.com', 'Petter', 'Olavson', '$2y$10$6WEN2LzNTNDAtaQjiKIZwuS/UfuTsbQMlT1Pat07Sztx4frGMyJvm', '2001-01-01 00:00:00', 098765432, 0, 'Mattematikk', 1),
        ('test3@test.com', 'Lisa', 'Stein', '$2y$10$DjajGxSAzBXcAHH6ODEsG.L60U6663wfqyEkWQiIqiD4VzrRjfeXK', '1999-04-06 00:00:00', 23456774573, 0, 'IT og Informassjonsystemer', 1);
 
 INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking, hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke, forMen, forWomen, userID)
@@ -83,6 +83,7 @@ VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', 
        ('Åja er du det, så kult å høre!', '2022-09-09 12:13:22', 2, 1),
        ('Jepp det er veldig kult, når kan jeg kjøpe den?', '2022-09-09 12:23:22', 1, 2),
        ('Den kan du kjøpe snart, eller noe', '2022-09-09 12:43:22', 2, 1),
+       ('Virkelig? Den er tilgjengelig snart?', '2022-09-09 12:53:32', 1, 2),
        ('Hallo hallo hallo!', '2022-09-09 12:13:22', 3, 1),
        ('Hei på deg hvordan går det??', '2022-09-09 12:03:22', 1, 3),
        ('Hus er kult, ditt hus er kult', '2022-09-09 13:23:22', 2, 3);
