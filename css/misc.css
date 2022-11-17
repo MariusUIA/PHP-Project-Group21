@@ -1,0 +1,13 @@
+.headerStyle {
+    border: 1px solid black;
+}
+
+.headerStyle > span > li{
+    display:inline-block;
+    margin-right:20px;
+}
+
+.headerStyle > span > li > a {
+    color:#000000;
+    text-decoration:none;
+}
