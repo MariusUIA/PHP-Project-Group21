@@ -1,7 +1,7 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
-include_once "../Utilities/SessionHandler.php";
 
+session_start();
 if(isset($_SESSION["user"])) header("location: Homepage.php");
 
 if(isset($_REQUEST["login_button"])) {
@@ -38,6 +38,7 @@ mysqli_close($connection);
 </head>
 <body>
 DEFAULT LOGIN: test@test.com og passord test123.
+DEFAULT LOGIN 2: test2@test.com og passord test2
 <form action='Login.php' method='post'>
     <label for='email'>Email: </label>
     <input name='email' type='text' /><br>

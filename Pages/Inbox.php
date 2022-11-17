@@ -3,26 +3,27 @@
 include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
 
-if (isset($_GET['button'])) {
-    header("location: Messages.php?senderID=" . $_GET['button']);
+if (isset($_GET['userID'])) {
+    header("location: Messages.php?ID=" . $_GET['userID']);
 }
 
 $recieverID = $_SESSION["user"]["userID"];
-$result = mysqli_query($connection,"SELECT * FROM Messages where recieverID = $recieverID");
+$result = mysqli_query($connection, "SELECT senderID FROM Messages WHERE recieverID = '$recieverID' GROUP BY senderID");
+
 
 
 function getUserInfo($senderID, $recieverID, $connection): void{
-    $userQ = mysqli_query($connection,"SELECT userID, firstName, lastName FROM User where userID = $senderID");
+    $userQ = mysqli_query($connection,"SELECT userID, firstName, lastName FROM User where userID = '$senderID'");
     $userRows=$userQ->fetch_assoc();
 
-    $messQ = mysqli_query($connection,"SELECT messageText, recieverID, senderID FROM Messages where senderID = $senderID AND recieverID = $recieverID ORDER BY messageID DESC LIMIT 1");
+    $messQ = mysqli_query($connection,"SELECT messageText, recieverID, senderID FROM Messages where senderID = '$senderID' AND recieverID = '$recieverID' ORDER BY messageID DESC LIMIT 1");
     $messRows=$messQ->fetch_assoc();
 
     echo '<tr><td></td>';
     echo '<td>' . $userRows['firstName'] . ' ' . $userRows['lastName'] . '</td>';
     echo '<td></td>';
     echo '<td>' . mb_substr($messRows['messageText'], 0, 30, 'UTF-8') . '...';
-    echo '<td><form action="Messages.php" method="get"><button type="submit" name="senderID" value="' . $userRows['userID'] . '">Gå til chat</button></form></td>';
+    echo '<td><form action="Messages.php" method="get"><button type="submit" name="ID" value="' . $userRows['userID'] . '">Gå til chat</button></form></td>';
     echo '</tr>';
 }
 
