@@ -2,6 +2,7 @@
 //side som viser hvem som man har fått melding fra, som da sender til "Messages.php" med riktig bruker.
 include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
+include_once "../Utilities/Header.php";
 
 if (isset($_GET['userID'])) {
     header("location: Messages.php?ID=" . $_GET['userID']);

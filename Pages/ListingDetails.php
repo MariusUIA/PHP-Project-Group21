@@ -6,11 +6,9 @@ if(isset($_GET['listingID'])) {
 }
 
 include_once "../Utilities/DatabaseConnection.php";
+include_once "../Utilities/Header.php";
+include_once "../Utilities/SessionHandler.php";
 
-session_start();
-if(!isset($_SESSION["user"])) {
-    header("location: Login.php?msg");
-}
 $userID = $_SESSION["user"]["userID"];
 
 if(isset($_REQUEST["create_listing_btn"])) {
