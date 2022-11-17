@@ -72,7 +72,7 @@ if (isset($_GET['button'])) {
                 <td><?php echo $rows['listingTitle'];?></td>
                 <td><?php echo $rows['listingType'];?></td>
                 <td><?php echo $rows['listingAddress'];?></td>
-                <td><form action='ListingDetails.php' method='get'><button type='submit' name='"listingID' value='<?php echo $rows['listingID']?>'>Se hus</button></form></td>
+                <td><form action='ListingDetails.php' method='get'><button type='submit' name='listingID' value='<?php echo $rows['listingID']?>'>Se hus</button></form></td>
             </tr>
             <?php
         }

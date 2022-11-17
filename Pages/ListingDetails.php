@@ -79,11 +79,15 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 
 if(isset($_REQUEST["add_image_btn"])) {
 
+    $listingID = filter_var($_REQUEST["listingID"]);
     $imgDesc = filter_var($_REQUEST["imgDesc"]);
+    $imageFileArr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
+    $imageType = $imageFileArr[1];
 
-    $sql = "INSERT INTO listingimages (listingImgDesc, listingID) VALUES (?,?)";
+    $sql = "INSERT INTO listingimages (listingImgDesc, listingImgType, listingID) VALUES (?,?, ?)";
     $test = $connection->prepare($sql);
-    $test->bind_param('si', $imgDesc, $userID);
+
+    $test->bind_param('ssi', $imgDesc, $imageType, $listingID);
     $test->execute();
 
     $sql = "SELECT * FROM listingimages ORDER BY listingImgID DESC";
@@ -93,8 +97,7 @@ if(isset($_REQUEST["add_image_btn"])) {
         $listingImages = mysqli_fetch_array($result);
 
         $target_dir = "../images/secondaryImages/";
-        $arr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
-        $target_file = $target_dir . $listingImages[0] . "." . $arr[1];
+        $target_file = $target_dir . $listingImages[0] . "." . $imageFileArr[1];
 
         move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
     }
@@ -108,8 +111,14 @@ if(isset($_REQUEST["delete_image_btn"])) {
     $test = $connection->prepare($sql);
     $test->execute();
 
-    $imageFile = "../images/secondaryImages/" . $listingImageID . ".jpg";
-    unlink($imageFile);
+    $sql = "SELECT * FROM listingimages WHERE listingImgID = $listingImageID";
+    $result = $connection->query($sql);
+    if($result->num_rows > 0) {
+        $imageType = $row["listingImgType"];
+        $imageFile = "../images/secondaryImages/" . $listingImageID . "." . $imageType;
+        unlink($imageFile);
+    }
+
 }
 
 
@@ -133,7 +142,6 @@ if(isset($_REQUEST["delete_image_btn"])) {
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            outline: solid red;
         }
 
         .listingContainer {
@@ -142,7 +150,6 @@ if(isset($_REQUEST["delete_image_btn"])) {
             align-content: center;
             flex-direction: column;
             width: max-content;
-            outline: solid blue;
             max-width: 50%;
             margin: auto;
         }
@@ -156,7 +163,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
         .secondaryImages {
             display: flex;
             flex-wrap: wrap;
-            outline: solid red;
+            margin-top: 1rem;
         }
 
         .secondaryImages > form {
@@ -212,7 +219,8 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $listingDesc = $row["listingDesc"];
             $listingPrice = $row["listingPrice"];
             $listingArea = $row["listingArea"];
-            $imagePath = "../images/" . $row["listingID"] . ".jpg";
+            $listingImageType = $row["listingImgType"];
+            $imagePath = "../images/" . $row["listingID"] . "." . $listingImageType;
 
             $facilities = "";
             if($row["hasShed"]) $facilities = $facilities . " shed,";
@@ -242,7 +250,8 @@ if(isset($_REQUEST["delete_image_btn"])) {
     if ($result2->num_rows > 0) {
         while ($row2 = $result2->fetch_assoc()) {
             $listingImageID = $row2["listingImgID"];
-            $imagePath = "../images/secondaryImages/" . $listingImageID . ".jpg";
+            $listingImageType = $row2["listingImgType"];
+            $imagePath = "../images/secondaryImages/" . $listingImageID . "." . $listingImageType;
             echo "<form>
                     <input name='listingImageID' hidden type='text' value='$listingImageID' />
                     <img class='secondayImage' src=$imagePath />
@@ -391,14 +400,15 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
 
     echo '<h2>Add image</h2>';
-    echo '<form action="listingDetails.php" method="post" enctype="multipart/form-data">
-                <label for="imgDesc">Image description</label>
-                <input type="text" name="imgDesc" id="imgDesc"><br>
+    echo "<form action='listingDetails.php' method='post' enctype='multipart/form-data'>
+                <input type='text' hidden value='$listingID' name='listingID' />
+                <label for='imgDesc'>Image description</label>
+                <input type='text' name='imgDesc' id='imgDesc'><br>
                 
-                <label for="imageUpload">Upload Image</label>
-                <input type="file" name="imageUpload" id="imageUpload"><br>
-                <button type="submit" name="add_image_btn">Submit</button>
-          </form>';
+                <label for='imageUpload'>Upload Image</label>
+                <input type='file' name='imageUpload' id='imageUpload'><br>
+                <button type='submit' name='add_image_btn'>Submit</button>
+          </form>";
     ?>
 
 </main>
