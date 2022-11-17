@@ -77,6 +77,43 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     $test->execute();
 }
 
+if(isset($_REQUEST["add_image_btn"])) {
+
+    $imgDesc = filter_var($_REQUEST["imgDesc"]);
+
+    $sql = "INSERT INTO listingimages (listingImgDesc, listingID) VALUES (?,?)";
+    $test = $connection->prepare($sql);
+    $test->bind_param('si', $imgDesc, $userID);
+    $test->execute();
+
+    $sql = "SELECT * FROM listingimages ORDER BY listingImgID DESC";
+
+    $result = $connection->query($sql);
+    if($result->num_rows > 0) {
+        $listingImages = mysqli_fetch_array($result);
+
+        $target_dir = "../images/secondaryImages/";
+        $arr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
+        $target_file = $target_dir . $listingImages[0] . "." . $arr[1];
+
+        move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
+    }
+
+}
+
+if(isset($_REQUEST["delete_image_btn"])) {
+    $listingImageID = filter_var($_REQUEST["listingImageID"]);
+
+    $sql = "DELETE FROM listingimages WHERE listingImgID = '$listingImageID'";
+    $test = $connection->prepare($sql);
+    $test->execute();
+
+    $imageFile = "../images/secondaryImages/" . $listingImageID . ".jpg";
+    unlink($imageFile);
+}
+
+
+
 
 ?>
 
@@ -105,23 +142,51 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
             align-content: center;
             flex-direction: column;
             width: max-content;
+            outline: solid blue;
+            max-width: 50%;
+            margin: auto;
         }
 
-        .listingContainer > img {
+        .secondayImage {
             object-fit: contain;
             width: auto;
-            height: 20rem;
+            height: 10rem;
+        }
+
+        .secondaryImages {
+            display: flex;
+            flex-wrap: wrap;
+            outline: solid red;
+        }
+
+        .secondaryImages > form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .secondaryImages > form > button {
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .secondaryImages > img {
+            object-fit: contain;
+            width: 10rem;
+            height: auto;
         }
 
         .listingTags {
             display: flex;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         .listingTags > .listingTag {
             background-color: #E4E4E4;
             border-radius: 15px;
             padding: 0.25rem 1rem;
-            width: max-content;
             margin-right: 0.5rem;
             margin-bottom: 2rem;
         }
@@ -142,7 +207,7 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     $result = $connection->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-
+            $listingID = $row["listingID"];
             $listingTitle = $row["listingTitle"];
             $listingDesc = $row["listingDesc"];
             $listingPrice = $row["listingPrice"];
@@ -166,19 +231,37 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
             if($row["forMen"]) array_push($tagsArray, "For men");
             if($row["forWomen"]) array_push($tagsArray, "For women");
 
-            echo "
-<div class='listingContainer'>
-<img src='$imagePath' />
-<h1>$listingTitle</h1>
-<p>Månedsleie: $listingPrice kr pr/mnd</p>
-<p>Areal: $listingArea kvadratmeter</p>
-<h2>Description:</h2>
-<p>$listingDesc</p>
-<h2>Info:</h2>
-<p>Facilities: $facilities</p>
-<p>Includes: $includes</p>
-<div class='listingTags'>
-";
+            echo
+            "<div class='listingContainer'>
+                  <img alt='$listingTitle' src='$imagePath' />
+                  <div class='secondaryImages'>";
+
+
+    $sql2 = "SELECT * FROM listingimages WHERE listingID = '$listingID'";
+    $result2 = $connection->query($sql2);
+    if ($result2->num_rows > 0) {
+        while ($row2 = $result2->fetch_assoc()) {
+            $listingImageID = $row2["listingImgID"];
+            $imagePath = "../images/secondaryImages/" . $listingImageID . ".jpg";
+            echo "<form>
+                    <input name='listingImageID' hidden type='text' value='$listingImageID' />
+                    <img class='secondayImage' src=$imagePath />
+                    <button name='delete_image_btn' type='submit'>Delete</button>
+                </form>";
+        }
+    }
+
+
+            echo "</div>";
+            echo "<h1>$listingTitle</h1>
+                  <p>Månedsleie: $listingPrice kr pr/mnd</p>
+                  <p>Areal: $listingArea kvadratmeter</p>
+                  <h2>Description:</h2>
+                  <p>$listingDesc</p>
+                  <h2>Info:</h2>
+                  <p>Facilities: $facilities</p>
+                  <p>Includes: $includes</p>
+            <div class='listingTags'>";
 
             for($i = 0; $i < count($tagsArray); $i++) {
                 echo "<div class='listingTag'>$tagsArray[$i]</div>";
@@ -233,6 +316,7 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
                 $bofelleskap = "selected";
             }
 
+            echo '<h2>Edit listing</h2>';
             echo '<form class="createListingForm" action="listingDetails.php" method="post" enctype="multipart/form-data">
 
         <input name="listingID" type="text" value='.$listingID.' hidden />
@@ -304,7 +388,19 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
     </form>';
         }
     }
+
+
+    echo '<h2>Add image</h2>';
+    echo '<form action="listingDetails.php" method="post" enctype="multipart/form-data">
+                <label for="imgDesc">Image description</label>
+                <input type="text" name="imgDesc" id="imgDesc"><br>
+                
+                <label for="imageUpload">Upload Image</label>
+                <input type="file" name="imageUpload" id="imageUpload"><br>
+                <button type="submit" name="add_image_btn">Submit</button>
+          </form>';
     ?>
+
 </main>
 
 </body>

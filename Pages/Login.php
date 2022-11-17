@@ -1,7 +1,7 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
-include_once "../Utilities/SessionHandler.php";
 
+session_start();
 if(isset($_SESSION["user"])) header("location: Homepage.php");
 
 if(isset($_REQUEST["login_button"])) {
