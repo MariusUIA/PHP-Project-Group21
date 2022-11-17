@@ -28,7 +28,9 @@ CREATE TABLE listings (
     listingAddress VARCHAR(100) NOT NULL,
     listingRooms INT NOT NULL,
     listingType VARCHAR(45) NOT NULL,
+    listingImgType VARCHAR(10),
     listingPrice INT NOT NULL,
+
     listingArea INT NOT NULL,
     petAllowed TINYINT NOT NULL DEFAULT 0,
     hasParking TINYINT NOT NULL DEFAULT 0,
@@ -52,6 +54,7 @@ CREATE TABLE listings (
 CREATE TABLE listingImages (
     listingImgID INT NOT NULL AUTO_INCREMENT,
     listingImgDesc VARCHAR(64),
+    listingImgType VARCHAR(10),
     listingID INT NOT NULL,
     PRIMARY KEY (listingImgID),
     FOREIGN KEY (listingID) references Listings(listingID) ON DELETE CASCADE
