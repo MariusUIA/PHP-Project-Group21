@@ -6,11 +6,9 @@ if(isset($_GET['listingID'])) {
 }
 
 include_once "../Utilities/DatabaseConnection.php";
+include_once "../Utilities/Header.php";
+include_once "../Utilities/SessionHandler.php";
 
-session_start();
-if(!isset($_SESSION["user"])) {
-    header("location: Login.php?msg");
-}
 $userID = $_SESSION["user"]["userID"];
 
 if(isset($_REQUEST["create_listing_btn"])) {
@@ -129,81 +127,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        main {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .listingContainer {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            flex-direction: column;
-            width: max-content;
-            max-width: 50%;
-            margin: auto;
-        }
-
-        .secondayImage {
-            object-fit: contain;
-            width: auto;
-            height: 10rem;
-        }
-
-        .secondaryImages {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .secondaryImages > form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .secondaryImages > form > button {
-            margin-top: 0.5rem;
-            cursor: pointer;
-        }
-
-        .secondaryImages > img {
-            object-fit: contain;
-            width: 10rem;
-            height: auto;
-        }
-
-        .listingTags {
-            display: flex;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .listingTags > .listingTag {
-            background-color: #E4E4E4;
-            border-radius: 15px;
-            padding: 0.25rem 1rem;
-            margin-right: 0.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .createListingForm > img {
-            object-fit: contain;
-            width: auto;
-            height: 5rem;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/ListingDetails.css">
 </head>
 <body>
 <main>

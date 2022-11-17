@@ -2,6 +2,7 @@
 //side som viser fra databasen alle meldinger mellom ID1 og ID2.
 include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
+include_once "../Utilities/Header.php";
 
 $senderID = $_GET['ID'];
 $recieverID = $_SESSION["user"]["userID"];

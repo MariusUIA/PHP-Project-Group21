@@ -1,6 +1,7 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
+include_once "../Utilities/Header.php";
 
 
 if(isset($_REQUEST["create_listing_btn"])) {

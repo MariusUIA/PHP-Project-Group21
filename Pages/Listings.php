@@ -1,6 +1,7 @@
 <?php
 include_once "../Utilities/DatabaseConnection.php";
-
+include_once "../Utilities/SessionHandler.php";
+include_once "../Utilities/Header.php";
 
 $result = mysqli_query($connection,"SELECT * FROM listings");
 

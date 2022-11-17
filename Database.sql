@@ -30,7 +30,6 @@ CREATE TABLE listings (
     listingType VARCHAR(45) NOT NULL,
     listingImgType VARCHAR(10),
     listingPrice INT NOT NULL,
-
     listingArea INT NOT NULL,
     petAllowed TINYINT NOT NULL DEFAULT 0,
     hasParking TINYINT NOT NULL DEFAULT 0,
@@ -77,9 +76,11 @@ VALUES ('test@test.com', 'Ola', 'Pettersen', '$2y$10$9RrqR0Y37OMmiwEjJxLCoOfZHY2
        ('test2@test.com', 'Petter', 'Olavson', '$2y$10$6WEN2LzNTNDAtaQjiKIZwuS/UfuTsbQMlT1Pat07Sztx4frGMyJvm', '2001-01-01 00:00:00', 098765432, 0, 'Mattematikk', 1),
        ('test3@test.com', 'Lisa', 'Stein', '$2y$10$DjajGxSAzBXcAHH6ODEsG.L60U6663wfqyEkWQiIqiD4VzrRjfeXK', '1999-04-06 00:00:00', 23456774573, 0, 'IT og Informassjonsystemer', 1);
 
-INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking, hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke, forMen, forWomen, userID)
-VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1);
+INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingImgType, listingPrice, listingArea, petAllowed, hasParking, hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke, forMen, forWomen, userID)
+VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 'jpg', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1);
 
+INSERT INTO listingimages (listingImgID, listingImgDesc, listingImgType, listingID)
+VALUES (1, 'Dette er et bilde', 'jpg', 1);
 
 INSERT INTO messages (messageText, messageTime, recieverID, senderID)
 VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:03:22', 1, 2),
