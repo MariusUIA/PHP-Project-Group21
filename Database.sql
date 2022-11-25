@@ -94,8 +94,8 @@ VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'F
        ('EksempelKollektiv 3', 'Tilfeldig generert', 'Testvegen 3', 7, 'Bofelleskap', 5678, 12, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 2),
        ('EksempelKollektiv 4', 'Tilfeldig generert', 'Testvegen 4', 6, 'Bofelleskap', 4567, 13, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1);
 
-INSERT INTO listingimages (listingImgID, listingImgDesc, listingImgType, listingID)
-VALUES (1, 'Dette er et bilde', 'jpg', 1);
+INSERT INTO listingimages (listingImgID, listingImgDesc, listingImgType, listingID, listingMainImg)
+VALUES (1, 'Dette er et bilde', 'jpg', 1, 1);
 
 INSERT INTO messages (messageText, messageTime, recieverID, senderID)
 VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:03:22', 1, 2),

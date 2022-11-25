@@ -56,15 +56,15 @@ if(isset($_REQUEST["create_listing_btn"])) {
 
 
 if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['rooms'])) {
-    $sql = "INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingImgType, listingPrice, listingArea, petAllowed, hasParking,
+    $sql = "INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking,
                       hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke,
                       forMen, forWomen, userID)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?, ?)";
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?)";
     $userID = $_SESSION["user"]["userID"];
     $arr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
 
     $test = $connection->prepare($sql);
-    $test->bind_param('sssissiiiiiiiiiiiiiiii', $title, $description, $address, $rooms, $type, $arr[1], $price, $area, $petAllowed,
+    $test->bind_param('sssisiiiiiiiiiiiiiiii', $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
         $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
         $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen, $userID);
     $test->execute();
@@ -73,12 +73,27 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 
     $result = $connection->query($sql);
     if($result->num_rows > 0) {
-        $test = mysqli_fetch_array($result);
+        $listing = mysqli_fetch_array($result);
+        $imgDesc = "";
+        $listingID = $listing[0];
+        $mainImg = true;
 
-        $target_dir = "../images/";
-        $target_file = $target_dir . $test[0] . "." . $arr[1];
+        $sql = "INSERT INTO listingimages (listingImgDesc, listingImgType, listingID, listingMainImg) VALUES (?,?, ?, ?)";
+        $test = $connection->prepare($sql);
+        $test->bind_param('ssii', $imgDesc, $arr[1], $listingID, $mainImg);
+        $test->execute();
 
-        move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
+        $sql = "SELECT * FROM listingimages ORDER BY listingImgID DESC";
+
+        $result = $connection->query($sql);
+        if($result->num_rows > 0) {
+            $listingImages = mysqli_fetch_array($result);
+
+            $target_dir = "../images/secondaryImages/";
+            $target_file = $target_dir . $listingImages[0] . "." . $arr[1];
+            move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
+        }
+
     }
 }
 

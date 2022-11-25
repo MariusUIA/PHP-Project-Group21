@@ -143,8 +143,6 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $listingDesc = $row["listingDesc"];
             $listingPrice = $row["listingPrice"];
             $listingArea = $row["listingArea"];
-            $listingImageType = $row["listingImgType"];
-            $imagePath = "../images/" . $row["listingID"] . "." . $listingImageType;
 
             $facilities = "";
             if($row["hasShed"]) $facilities = $facilities . " shed,";
@@ -163,10 +161,15 @@ if(isset($_REQUEST["delete_image_btn"])) {
             if($row["forMen"]) array_push($tagsArray, "For men");
             if($row["forWomen"]) array_push($tagsArray, "For women");
 
-            echo
-            "<div class='listingContainer'>
+            $sql3 = "SELECT * FROM listingimages WHERE listingID = '$listingID' AND listingMainImg = 1";
+            $result3 = $connection->query($sql3);
+            if ($result3->num_rows > 0) {
+                $listingMainImage = mysqli_fetch_array($result3);
+                $imagePath = "../images/secondaryImages/" . $listingMainImage[0] . "." . $listingMainImage[2];
+                echo "<div class='listingContainer'>
                   <img alt='$listingTitle' src='$imagePath' />
                   <div class='secondaryImages'>";
+            }
 
 
     $sql2 = "SELECT * FROM listingimages WHERE listingID = '$listingID'";
@@ -175,12 +178,17 @@ if(isset($_REQUEST["delete_image_btn"])) {
         while ($row2 = $result2->fetch_assoc()) {
             $listingImageID = $row2["listingImgID"];
             $listingImageType = $row2["listingImgType"];
+            $listingImgDesc = $row2["listingImgDesc"];
+            $listingMainImg = $row2["listingMainImg"];
             $imagePath = "../images/secondaryImages/" . $listingImageID . "." . $listingImageType;
-            echo "<form>
+            if(!$listingMainImg) {
+                echo "<form>
                     <input name='listingImageID' hidden type='text' value='$listingImageID' />
-                    <img class='secondayImage' src=$imagePath />
+                    <img class='secondayImage' src='$imagePath' />
+                    <p>$listingImgDesc</p>
                     <button name='delete_image_btn' type='submit'>Delete</button>
                 </form>";
+            }
         }
     }
 
