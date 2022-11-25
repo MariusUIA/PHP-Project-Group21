@@ -28,7 +28,7 @@ if (isset($_GET['button'])) {
             flex-direction: column;
             align-items: center;
             outline: solid red;
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
         }
 
@@ -36,6 +36,7 @@ if (isset($_GET['button'])) {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
 
