@@ -21,6 +21,12 @@ main {
     margin: auto;
 }
 
+.listingContainer > img {
+    object-fit: contain;
+    width: auto;
+    height: 20rem;
+}
+
 .secondayImage {
     object-fit: contain;
     width: auto;
