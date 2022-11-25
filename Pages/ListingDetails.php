@@ -6,8 +6,8 @@ if(isset($_GET['listingID'])) {
 }
 
 include_once "../Utilities/DatabaseConnection.php";
-include_once "../Utilities/Header.php";
 include_once "../Utilities/SessionHandler.php";
+include_once "../Utilities/Header.php";
 
 $userID = $_SESSION["user"]["userID"];
 
