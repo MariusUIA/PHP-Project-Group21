@@ -91,6 +91,26 @@ if (isset($_GET['button'])) {
         td {
             font-weight: lighter;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            background-color: #0000FF;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #0000FF;
+            min-width: 160px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 
@@ -98,17 +118,22 @@ if (isset($_GET['button'])) {
 <section>
     <h1>Annonser</h1>
     <form method="post" action="">
-        <input type="checkbox" name="petAllowed"> Dyrehold tillat<br>
-        <input type="checkbox" name="hasParking"> Parkering tilgjengelig<br>
-        <input type="checkbox" name="hasShed"> Har bod<br>
-        <input type="checkbox" name="isFurnished"> Møbler<br>
-        <input type="checkbox" name="hasAppliances"> Hvitevarer<br>
-        <input type="checkbox" name="hasBalcony"> Balkong<br>
-        <input type="checkbox" name="hasGarden"> Hage<br>
-        <input type="checkbox" name="wcFriendly"> Rullestolvennlig<br>
-        <input type="checkbox" name="canSmoke"> Røyking tillat<br>
+        <div class="dropdown">
+        <span>Filter</span>
+            <div class="dropdown-content">
+                <input type="checkbox" name="petAllowed"> Dyrehold tillat<br>
+                <input type="checkbox" name="hasParking"> Parkering<br>
+                <input type="checkbox" name="hasShed"> Har bod<br>
+                <input type="checkbox" name="isFurnished"> Møbler<br>
+                <input type="checkbox" name="hasAppliances"> Hvitevarer<br>
+                <input type="checkbox" name="hasBalcony"> Balkong<br>
+                <input type="checkbox" name="hasGarden"> Hage<br>
+                <input type="checkbox" name="wcFriendly"> Rullestolvennlig<br>
+                <input type="checkbox" name="canSmoke"> Røyking tillat<br>
+            </div>
+        </div>
 
-
+        <div>
         <label for='sort'>Sorter: </label>
         <select name="sort" id="sort">
             <option value="priceSortLow">Pris (Lav -> Høy)</option>
@@ -118,9 +143,12 @@ if (isset($_GET['button'])) {
             <option value="areaSortLow">Areal (Lav -> Høy)</option>
             <option value="areaSortHigh">Areal (Høy -> Lav)</option>
         </select><br>
+        </div>
 
+        <div>
         Søk: <input type="text" name="search" placeholder="..."><br>
         <input type="submit" name="submit" value="Søk">
+        </div>
     </form>
     </br>
 
