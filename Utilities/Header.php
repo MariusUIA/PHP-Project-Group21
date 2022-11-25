@@ -1,6 +1,3 @@
-<?php
-?>
-
 <link rel="stylesheet" href="../css/misc.css">
 <header style="font-family: Arial,Helvetica,sans-serif">
     <div class="headerStyle">
@@ -12,6 +9,7 @@
                     echo '<li> <a href="../Pages/MyListings.php"> Dine Annonser </a></li>';
                 }
                 echo '<li> <a href="../Pages/Inbox.php"> Meldinger </a></li>';
+                echo '<li> <a href="../Pages/ProfilePage.php"> Profil </a></li>';
                 echo '<li> <a href="../Pages/Logout.php"> Logg ut </a></li>';
                 echo '</span>';
                 ?>

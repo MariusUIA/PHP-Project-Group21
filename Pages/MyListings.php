@@ -27,9 +27,6 @@ if (isset($_GET['button'])) {
             display: flex;
             flex-direction: column;
             align-items: center;
-            outline: solid red;
-            min-height: 100vh;
-            width: 100%;
         }
 
         .listingsContainer {

@@ -23,7 +23,7 @@ if(isset($_REQUEST["login_button"])) {
                     $_SESSION["user"]["email"] = $row["email"];
                     $_SESSION["user"]["userID"] = $row["userID"];
                     $_SESSION["user"]["isStudent"] = $row["isStudent"];
-                    header("location: Homepage.php");
+                    header("location: Listings.php");
                 } else {
                     echo "<p>Wrong email or password</p>";
                 }
