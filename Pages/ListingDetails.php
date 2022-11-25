@@ -143,6 +143,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $listingDesc = $row["listingDesc"];
             $listingPrice = $row["listingPrice"];
             $listingArea = $row["listingArea"];
+            $listingUserID = $row["userID"];
 
             $facilities = "";
             if($row["hasShed"]) $facilities = $facilities . " shed,";
@@ -256,9 +257,9 @@ if(isset($_REQUEST["delete_image_btn"])) {
             } else {
                 $bofelleskap = "selected";
             }
-
-            echo '<h2>Edit listing</h2>';
-            echo '<form class="createListingForm" action="listingDetails.php" method="post" enctype="multipart/form-data">
+            if($listingUserID === $userID) {
+                echo '<h2>Edit listing</h2>';
+                echo '<form class="createListingForm" action="listingDetails.php" method="post" enctype="multipart/form-data">
 
         <input name="listingID" type="text" value='.$listingID.' hidden />
         
@@ -327,12 +328,12 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
         <button type="submit" name="create_listing_btn">Save</button>
     </form>';
+            }
         }
-    }
 
 
-    echo '<h2>Add image</h2>';
-    echo "<form action='listingDetails.php' method='post' enctype='multipart/form-data'>
+        echo '<h2>Add image</h2>';
+        echo "<form action='listingDetails.php' method='post' enctype='multipart/form-data'>
                 <input type='text' hidden value='$listingID' name='listingID' />
                 <label for='imgDesc'>Image description</label>
                 <input type='text' name='imgDesc' id='imgDesc'><br>
@@ -341,6 +342,8 @@ if(isset($_REQUEST["delete_image_btn"])) {
                 <input type='file' name='imageUpload' id='imageUpload'><br>
                 <button type='submit' name='add_image_btn'>Submit</button>
           </form>";
+            }
+
     ?>
 
 </main>
