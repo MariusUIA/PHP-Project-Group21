@@ -55,6 +55,7 @@ CREATE TABLE listingImages (
     listingImgDesc VARCHAR(64),
     listingImgType VARCHAR(10),
     listingID INT NOT NULL,
+    listingMainImg TINYINT NOT NULL DEFAULT 0,
     PRIMARY KEY (listingImgID),
     FOREIGN KEY (listingID) references Listings(listingID) ON DELETE CASCADE
 );
