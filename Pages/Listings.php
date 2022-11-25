@@ -40,7 +40,7 @@ if (isset($_GET['button'])) {
         th,
         td {
             font-weight: bold;
-            border: 1px solid black;
+            border: 0px solid black;
             padding: 10px;
             text-align: center;
         }
@@ -53,26 +53,30 @@ if (isset($_GET['button'])) {
 
 <body>
 <section>
-    <h1>GeeksForGeeks</h1>
+    <h1>Annonser</h1>
+
     <table>
         <tr>
             <th></th>
             <th>Tittel</th>
-            <th>noe</th>
-            <th>test</th>
-            <th>GFwpidw</th>
-            <th>Knapp</th>
+            <th>Type</th>
+            <th>Adresse</th>
+            <th>Antall Rom</th>
+            <th>Pris</th>
+            <th></th>
         </tr>
         <?php
         while($rows=$result->fetch_assoc())
         {
             ?>
             <tr>
-                <td><img src="https://thoneiendom.no/globalassets/bolig-til-salgs/aktuelle-boligprosjekter/wessel-park/bilder/artikkelbilder/wesselpark_vestby-sommer1.jpg?width=200&height=180" </td>
-                <td><?php echo $rows['listingID'];?></td>
+                <td><?php echo '<img src="../images/' . $rows['listingID'] . '.' . $rows['listingImgType'] . '" height="150px"; width="200px;"';?></td>
+                <!---<td><?php /*echo $rows['listingID'];*/?></td> --->
                 <td><?php echo $rows['listingTitle'];?></td>
                 <td><?php echo $rows['listingType'];?></td>
                 <td><?php echo $rows['listingAddress'];?></td>
+                <td><?php echo $rows['listingRooms'];?></td>
+                <td><?php echo $rows['listingPrice'] . "kr";?></td>
                 <td><form action='ListingDetails.php' method='get'><button type='submit' name='listingID' value='<?php echo $rows['listingID']?>'>Se hus</button></form></td>
             </tr>
             <?php

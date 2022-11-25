@@ -77,7 +77,22 @@ VALUES ('test@test.com', 'Ola', 'Pettersen', '$2y$10$9RrqR0Y37OMmiwEjJxLCoOfZHY2
        ('test3@test.com', 'Lisa', 'Stein', '$2y$10$DjajGxSAzBXcAHH6ODEsG.L60U6663wfqyEkWQiIqiD4VzrRjfeXK', '1999-04-06 00:00:00', 23456774573, 0, 'IT og Informassjonsystemer', 1);
 
 INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingImgType, listingPrice, listingArea, petAllowed, hasParking, hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke, forMen, forWomen, userID)
-VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 'jpg', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1);
+VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'Fjellvegen 20', 5, 'Hybel', 'jpg', 5000, 20, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1),
+       ('Fin hybel', 'Dette huset er veldig kult, det har noen ting her og der', 'Utenforvegen 12', 8, 'Hybel', 'jpg', 5500, 50, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 2),
+       ('Beste felleskap', 'Dette huset er veldig kult eller kanskje det ikke er det?', 'Steinstien 8B', 4, 'Bofelleskap', 'jpg', 2000, 10, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 2),
+       ('Blå Hybel', 'Dette huset er blått, bare kom og se!', 'Rødlands 2', 8, 'Hybel', 'jpg', 7000, 60, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1),
+       ('Altsammen Kollektivet', 'Her bor har vi alt!', 'Lampegata 6C', 6, 'Bofelleskap', 'jpg', 5000, 20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+       ('Ingenting Boligen', 'Denne boligen har ingenting, så merkelig', 'Skogsplassen 27', 7, 'Hybel', 'jpg', 2750, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2),
+       ('EksempelHus 1', 'Tilfeldig generert', 'Addresse 1', 5, 'Hybel', 'jpg', 7632, 12, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 2),
+       ('EksempelHus 2', 'Tilfeldig generert', 'Addresse 2', 4, 'Hybel', 'jpg', 4234, 14, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1),
+       ('EksempelHus 3', 'Tilfeldig generert', 'Addresse 3', 6, 'Hybel', 'jpg', 9827, 24, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 2),
+       ('EksempelHus 4', 'Tilfeldig generert', 'Addresse 4', 7, 'Hybel', 'jpg', 4789, 14, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1),
+       ('EksempelHus 5', 'Tilfeldig generert', 'Addresse 5', 9, 'Hybel', 'jpg', 5802, 16, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 2),
+       ('EksempelHus 6', 'Tilfeldig generert', 'Addresse 6', 8, 'Hybel', 'jpg', 7312, 10, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1),
+       ('EksempelKollektiv 1', 'Tilfeldig generert', 'Testvegen 1', 2, 'Bofelleskap', 'jpg', 2341, 8, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1),
+       ('EksempelKollektiv 2', 'Tilfeldig generert', 'Testvegen 2', 4, 'Bofelleskap', 'jpg', 8570, 17, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 2),
+       ('EksempelKollektiv 3', 'Tilfeldig generert', 'Testvegen 3', 7, 'Bofelleskap', 'jpg', 5678, 12, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 2),
+       ('EksempelKollektiv 4', 'Tilfeldig generert', 'Testvegen 4', 6, 'Bofelleskap', 'jpg', 4567, 13, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1);
 
 INSERT INTO listingimages (listingImgID, listingImgDesc, listingImgType, listingID)
 VALUES (1, 'Dette er et bilde', 'jpg', 1);
