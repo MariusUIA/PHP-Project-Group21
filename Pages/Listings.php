@@ -169,7 +169,7 @@ if (isset($_GET['button'])) {
         {
             ?>
             <tr>
-                <td><?php echo "<img src='../images/secondaryImages/" . $rows['listingImgID'] . "." . $rows['listingImgType'] . "'width='300' height='200'>  </img>";?></td>
+                <td><?php echo "<img src='../images/" . $rows['listingImgID'] . "." . $rows['listingImgType'] . "'width='300' height='200'>  </img>";?></td>
                 <td><?php echo $rows['listingTitle'];?></td>
                 <td><?php echo $rows['listingAddress'];?></td>
                 <td><?php echo $rows['listingRooms'];?></td>
