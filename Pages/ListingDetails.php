@@ -21,45 +21,31 @@ if(isset($_REQUEST["create_listing_btn"])) {
     $area = filter_var($_REQUEST["area"], FILTER_SANITIZE_SPECIAL_CHARS);
     $type = filter_var($_REQUEST["type"]);
 
-    $petAllowed = (isset($_REQUEST["petAllowed"]));
-    if($petAllowed) {$petAllowed = 1;} else {$petAllowed = 0;}
+    $petAllowed = +isset($_REQUEST["petAllowed"]);
 
-    $hasParking = (isset($_REQUEST["hasParking"]));
-    if($hasParking) {$hasParking = 1;} else {$hasParking = 0;}
+    $hasParking = +isset($_REQUEST["hasParking"]);
 
-    $hasShed = (isset($_REQUEST["hasShed"]));
-    if($hasShed) {$hasShed = 1;} else {$hasShed = 0;}
+    $hasShed = +isset($_REQUEST["hasShed"]);
 
-    $isFurnished = (isset($_REQUEST["isFurnished"]));
-    if($isFurnished) {$isFurnished = 1;} else {$isFurnished = 0;}
+    $isFurnished = +isset($_REQUEST["isFurnished"]);
 
-    $hasAppliances = (isset($_REQUEST["hasAppliances"]));
-    if($hasAppliances) {$hasAppliances = 1;} else {$hasAppliances = 0;}
+    $hasAppliances = +isset($_REQUEST["hasAppliances"]);
 
-    $hasBalcony = (isset($_REQUEST["hasBalcony"]));
-    if($hasBalcony) {$hasBalcony = 1;} else {$hasBalcony = 0;}
+    $hasBalcony = +isset($_REQUEST["hasBalcony"]);
 
-    $hasGarden = (isset($_REQUEST["hasGarden"]));
-    if($hasGarden) {$hasGarden = 1;} else {$hasGarden = 0;}
+    $hasGarden = +isset($_REQUEST["hasGarden"]);
 
-    $wcFriendly = (isset($_REQUEST["wcFriendly"]));
-    if($wcFriendly) {$wcFriendly = 1;} else {$wcFriendly = 0;}
+    $wcFriendly = +isset($_REQUEST["wcFriendly"]);
 
-    $incElectricity = (isset($_REQUEST["incElectricity"]));
-    if($incElectricity) {$incElectricity = 1;} else {$incElectricity = 0;}
+    $incElectricity = +isset($_REQUEST["incElectricity"]);
 
-    $incWifi = (isset($_REQUEST["incWifi"]));
-    if($incWifi) {$incWifi = 1;} else {$incWifi = 0;}
+    $incWifi = +isset($_REQUEST["incWifi"]);
 
-    $canSmoke = (isset($_REQUEST["canSmoke"]));
-    if($canSmoke) {$canSmoke = 1;} else {$canSmoke = 0;}
+    $canSmoke = +isset($_REQUEST["canSmoke"]);
 
-    $forMen = (isset($_REQUEST["forMen"]));
-    if($forMen) {$forMen = 1;} else {$forMen = 0;}
+    $forMen = +isset($_REQUEST["forMen"]);
 
-    $forWomen = (isset($_REQUEST["forWomen"]));
-    if($forWomen) {$forWomen = 1;} else {$forWomen = 0;}
-
+    $forWomen = +isset($_REQUEST["forWomen"]);
 }
 
 if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['rooms'])) {
