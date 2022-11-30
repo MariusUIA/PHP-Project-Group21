@@ -5,7 +5,7 @@ include_once "../Utilities/Header.php";
 
 
 if (!isset($_POST['submit'])) {
-    $queryTest = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID";
+    $queryTest = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID WHERE listingimages.listingMainImg = 1";
     //$queryUnused = "SELECT * FROM listings";
     $result = mysqli_query($connection, $queryTest);
 }
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
         'canSmoke' => +isset($_POST['canSmoke'])
     );
 
-    $query = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID WHERE listingTitle LIKE '%$search%'";
+    $query = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID WHERE listingTitle LIKE '%$search%' AND listingimages.listingMainImg = 1";
 
     foreach ($filterArray as $key => $value){
         if ($value != 0) {
