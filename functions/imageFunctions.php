@@ -15,7 +15,7 @@ function addImageLocally($connection, $imageType) {
     if($result->num_rows > 0) {
         $listingImages = mysqli_fetch_array($result);
 
-        $target_dir = "../images/secondaryImages/";
+        $target_dir = "../images/";
         $target_file = $target_dir . $listingImages[0] . "." . $imageType;
 
         move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
@@ -34,7 +34,7 @@ function deleteImageLocally($connection, $listingImageID) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $imageType = $row["listingImgType"];
-            $imageFile = "../images/secondaryImages/" . $listingImageID . "." . $imageType;
+            $imageFile = "../images/" . $listingImageID . "." . $imageType;
             unlink($imageFile);
         }
     }
