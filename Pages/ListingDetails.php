@@ -80,7 +80,7 @@ if(isset($_REQUEST["add_image_btn"])) {
     if($result->num_rows > 0) {
         $listingImages = mysqli_fetch_array($result);
 
-        $target_dir = "../images/secondaryImages/";
+        $target_dir = "../images/";
         $target_file = $target_dir . $listingImages[0] . "." . $imageFileArr[1];
 
         move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
@@ -99,7 +99,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
     $result = $connection->query($sql);
     if($result->num_rows > 0) {
         $imageType = $row["listingImgType"];
-        $imageFile = "../images/secondaryImages/" . $listingImageID . "." . $imageType;
+        $imageFile = "../images/" . $listingImageID . "." . $imageType;
         unlink($imageFile);
     }
 
@@ -152,7 +152,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $result3 = $connection->query($sql3);
             if ($result3->num_rows > 0) {
                 $listingMainImage = mysqli_fetch_array($result3);
-                $imagePath = "../images/secondaryImages/" . $listingMainImage[0] . "." . $listingMainImage[2];
+                $imagePath = "../images/" . $listingMainImage[0] . "." . $listingMainImage[2];
                 echo "<div class='listingContainer'>
                   <img alt='$listingTitle' src='$imagePath' />
                   <div class='secondaryImages'>";
@@ -167,7 +167,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $listingImageType = $row2["listingImgType"];
             $listingImgDesc = $row2["listingImgDesc"];
             $listingMainImg = $row2["listingMainImg"];
-            $imagePath = "../images/secondaryImages/" . $listingImageID . "." . $listingImageType;
+            $imagePath = "../images/" . $listingImageID . "." . $listingImageType;
             if(!$listingMainImg) {
                 echo "<form>
                     <input name='listingImageID' hidden type='text' value='$listingImageID' />
