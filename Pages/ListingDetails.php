@@ -8,6 +8,9 @@ if(isset($_GET['listingID'])) {
 include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
 include_once "../Utilities/Header.php";
+include_once "../functions/updateListing.php";
+include_once "../functions/imageFunctions.php";
+
 
 $userID = $_SESSION["user"]["userID"];
 
@@ -49,16 +52,9 @@ if(isset($_REQUEST["create_listing_btn"])) {
 }
 
 if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['rooms'])) {
-    $sql = "UPDATE listings SET listingTitle = ?, listingDesc = ?, listingAddress = ?, listingRooms = ?, listingType = ?, 
-                    listingPrice = ?, listingArea = ?, petAllowed = ?, hasParking = ?, hasShed = ?, isFurnished = ?, 
-                    hasAppliances = ?, hasBalcony = ?, hasGarden = ?, wcFriendly = ?, incElectricity = ?, incWifi = ?, canSmoke = ?,
-                      forMen = ?, forWomen = ?, userID = ? WHERE listingID = '$listingID'";
-
-    $test = $connection->prepare($sql);
-    $test->bind_param('sssisiiiiiiiiiiiiiiii', $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
-        $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
-        $incElectricity, $incWifi, $canSmoke, $forMen, $forWomen, $userID);
-    $test->execute();
+    updateListing($connection, $listingID, $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
+        $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly, $incElectricity, $incWifi, $canSmoke,
+        $forMen, $forWomen, $userID);
 }
 
 if(isset($_REQUEST["add_image_btn"])) {
@@ -68,40 +64,17 @@ if(isset($_REQUEST["add_image_btn"])) {
     $imageFileArr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
     $imageType = $imageFileArr[1];
 
-    $sql = "INSERT INTO listingimages (listingImgDesc, listingImgType, listingID) VALUES (?,?, ?)";
-    $test = $connection->prepare($sql);
-
-    $test->bind_param('ssi', $imgDesc, $imageType, $listingID);
-    $test->execute();
-
-    $sql = "SELECT * FROM listingimages ORDER BY listingImgID DESC";
-
-    $result = $connection->query($sql);
-    if($result->num_rows > 0) {
-        $listingImages = mysqli_fetch_array($result);
-
-        $target_dir = "../images/secondaryImages/";
-        $target_file = $target_dir . $listingImages[0] . "." . $imageFileArr[1];
-
-        move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
-    }
+    addImage($connection, $imgDesc, $imageType, $listingID);
+    addImageLocally($connection, $imageType);
 
 }
 
 if(isset($_REQUEST["delete_image_btn"])) {
     $listingImageID = filter_var($_REQUEST["listingImageID"]);
+    echo "$listingImageID";
 
-    $sql = "DELETE FROM listingimages WHERE listingImgID = '$listingImageID'";
-    $test = $connection->prepare($sql);
-    $test->execute();
-
-    $sql = "SELECT * FROM listingimages WHERE listingImgID = $listingImageID";
-    $result = $connection->query($sql);
-    if($result->num_rows > 0) {
-        $imageType = $row["listingImgType"];
-        $imageFile = "../images/secondaryImages/" . $listingImageID . "." . $imageType;
-        unlink($imageFile);
-    }
+    deleteImageLocally($connection, $listingImageID);
+    deleteImage($connection, $listingImageID);
 
 }
 
