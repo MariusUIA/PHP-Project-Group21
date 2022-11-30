@@ -95,7 +95,22 @@ VALUES ('Kult hus', 'Dette huset er veldig kult, det har mange fine møbler', 'F
        ('EksempelKollektiv 4', 'Tilfeldig generert', 'Testvegen 4', 6, 'Bofelleskap', 4567, 13, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1);
 
 INSERT INTO listingimages (listingImgID, listingImgDesc, listingImgType, listingID, listingMainImg)
-VALUES (1, 'Dette er et bilde', 'jpg', 1, 1);
+VALUES (1, 'Dette er et bilde', 'jpg', 1, 1),
+       (2, 'Dette er et bilde', 'jpg', 2, 1),
+       (3, 'Dette er et bilde', 'jpg', 3, 1),
+       (4, 'Dette er et bilde', 'jpg', 4, 1),
+       (5, 'Dette er et bilde', 'jpg', 5, 1),
+       (6, 'Dette er et bilde', 'jpg', 6, 1),
+       (7, 'Dette er et bilde', 'png', 7, 1),
+       (8, 'Dette er et bilde', 'jpg', 8, 1),
+       (9, 'Dette er et bilde', 'jpg', 9, 1),
+       (10, 'Dette er et bilde', 'jpg', 10, 1),
+       (11, 'Dette er et bilde', 'jpg', 11, 1),
+       (12, 'Dette er et bilde', 'jpg', 12, 1),
+       (13, 'Dette er et bilde', 'jpg', 13, 1),
+       (14, 'Dette er et bilde', 'jpg', 14, 1),
+       (15, 'Dette er et bilde', 'jpg', 15, 1),
+       (16, 'Dette er et bilde', 'jpg', 16, 1);
 
 INSERT INTO messages (messageText, messageTime, recieverID, senderID)
 VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:03:22', 1, 2),

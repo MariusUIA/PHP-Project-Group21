@@ -5,7 +5,9 @@ include_once "../Utilities/Header.php";
 
 
 if (!isset($_POST['submit'])) {
-    $result = mysqli_query($connection,"SELECT * FROM listings");
+    $queryTest = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID";
+    //$queryUnused = "SELECT * FROM listings";
+    $result = mysqli_query($connection, $queryTest);
 }
 
 if (isset($_POST['submit'])) {
@@ -35,7 +37,7 @@ if (isset($_POST['submit'])) {
         'canSmoke' => +isset($_POST['canSmoke'])
     );
 
-    $query = "SELECT * FROM listings WHERE listingTitle LIKE '%$search%'";
+    $query = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID WHERE listingTitle LIKE '%$search%'";
 
     foreach ($filterArray as $key => $value){
         if ($value != 0) {
@@ -167,8 +169,7 @@ if (isset($_GET['button'])) {
         {
             ?>
             <tr>
-                <td><?php echo '<img src="../images/' . $rows['listingID'] . '.' . $rows['listingImgType'] . '" height="150px"; width="200px;"';?></td>
-                <!---<td><?php /*echo $rows['listingID'];*/?></td> --->
+                <td><?php echo "<img src='../images/secondaryImages/" . $rows['listingImgID'] . "." . $rows['listingImgType'] . "'width='300' height='200'>  </img>";?></td>
                 <td><?php echo $rows['listingTitle'];?></td>
                 <td><?php echo $rows['listingAddress'];?></td>
                 <td><?php echo $rows['listingRooms'];?></td>
