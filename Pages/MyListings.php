@@ -5,7 +5,7 @@ include_once "../Utilities/Header.php";
 
 $userID = $_SESSION["user"]["userID"];
 
-$sql = "SELECT * FROM listings WHERE userID = $userID";
+$sql = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID WHERE userID = '$userID' AND listingimages.listingMainImg = 1";
 $result = $connection->query($sql);
 
 if (isset($_GET['button'])) {
@@ -91,7 +91,7 @@ if (isset($_GET['button'])) {
 if($result->num_rows > 0) {
 while($row = $result->fetch_assoc()) {
     $imageType = $row["listingImgType"];
-    $image = "../images/" . $userID . "." . $imageType;
+    $image = "../images/" . $row['listingID'] . "." . $imageType;
     $title = $row["listingTitle"];
     $type = $row["listingType"];
     $address = $row["listingAddress"];

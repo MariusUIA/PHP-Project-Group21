@@ -89,7 +89,7 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
         if($result->num_rows > 0) {
             $listingImages = mysqli_fetch_array($result);
 
-            $target_dir = "../images/secondaryImages/";
+            $target_dir = "../images/";
             $target_file = $target_dir . $listingImages[0] . "." . $arr[1];
             move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $target_file);
         }

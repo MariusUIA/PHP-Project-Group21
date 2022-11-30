@@ -64,8 +64,10 @@ if(isset($_REQUEST["add_image_btn"])) {
     $imageFileArr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
     $imageType = $imageFileArr[1];
 
+
     addImage($connection, $imgDesc, $imageType, $listingID);
     addImageLocally($connection, $imageType);
+
 
 }
 
@@ -73,8 +75,10 @@ if(isset($_REQUEST["delete_image_btn"])) {
     $listingImageID = filter_var($_REQUEST["listingImageID"]);
     echo "$listingImageID";
 
+
     deleteImageLocally($connection, $listingImageID);
     deleteImage($connection, $listingImageID);
+
 
 }
 
@@ -125,7 +129,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $result3 = $connection->query($sql3);
             if ($result3->num_rows > 0) {
                 $listingMainImage = mysqli_fetch_array($result3);
-                $imagePath = "../images/secondaryImages/" . $listingMainImage[0] . "." . $listingMainImage[2];
+                $imagePath = "../images/" . $listingMainImage[0] . "." . $listingMainImage[2];
                 echo "<div class='listingContainer'>
                   <img alt='$listingTitle' src='$imagePath' />
                   <div class='secondaryImages'>";
@@ -140,7 +144,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $listingImageType = $row2["listingImgType"];
             $listingImgDesc = $row2["listingImgDesc"];
             $listingMainImg = $row2["listingMainImg"];
-            $imagePath = "../images/secondaryImages/" . $listingImageID . "." . $listingImageType;
+            $imagePath = "../images/" . $listingImageID . "." . $listingImageType;
             if(!$listingMainImg) {
                 echo "<form>
                     <input name='listingImageID' hidden type='text' value='$listingImageID' />

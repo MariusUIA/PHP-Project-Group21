@@ -110,7 +110,11 @@ VALUES (1, 'Dette er et bilde', 'jpg', 1, 1),
        (13, 'Dette er et bilde', 'jpg', 13, 1),
        (14, 'Dette er et bilde', 'jpg', 14, 1),
        (15, 'Dette er et bilde', 'jpg', 15, 1),
-       (16, 'Dette er et bilde', 'jpg', 16, 1);
+       (16, 'Dette er et bilde', 'jpg', 16, 1),
+       (17, 'Dette er et bilde', 'jpg', 1, 0),
+       (18, 'Dette er et bilde', 'jpg', 1, 0),
+       (19, 'Dette er et bilde', 'jpg', 2, 0),
+       (20, 'Dette er et bilde', 'jpg', 2, 0);
 
 INSERT INTO messages (messageText, messageTime, recieverID, senderID)
 VALUES ('Hei, hvordan går det? Jeg er interessert i den boligen du låner ut', '2022-09-09 12:03:22', 1, 2),
