@@ -30,27 +30,13 @@ if(isset($_REQUEST["edit_profile_btn"])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Profil Side</title>
-    <!-- CSS FOR STYLING THE PAGE -->
-    <style>
-        main {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-        }
-
-        form {
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+    <title>Profil</title>
+    <link rel="stylesheet" href="../css/Profile.css">
 </head>
 <body>
 
 <main>
-<form action="ProfilePage.php" method="post">
+<form action="Profile.php" method="post">
 
 <?php
 $sql = "SELECT * FROM user WHERE userID = '$userID'";

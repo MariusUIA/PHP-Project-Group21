@@ -61,64 +61,11 @@ if (isset($_GET['button'])) {
 <head>
     <meta charset="UTF-8">
     <title>Annonser</title>
-    <!-- CSS FOR STYLING THE PAGE -->
-    <style>
-        table {
-            margin: 0 auto;
-            font-size: large;
-            border: 1px solid black;
-        }
-
-        h1 {
-            text-align: center;
-            color: #006600;
-            font-size: xx-large;
-            font-family: 'Gill Sans', 'Gill Sans MT',
-            ' Calibri', 'Trebuchet MS', 'sans-serif';
-        }
-
-        td {
-            background-color: #E4F5D4;
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            font-weight: bold;
-            border: 0px solid black;
-            padding: 10px;
-            text-align: center;
-        }
-
-        td {
-            font-weight: lighter;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            background-color: #0000FF;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #0000FF;
-            min-width: 160px;
-              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            padding: 12px 16px;
-            z-index: 1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/Listings.css">
 </head>
 
 <body>
 <section>
-    <h1>Annonser</h1>
     <form method="post" action="">
         <div class="dropdown">
         <span>Filter</span>
@@ -167,17 +114,17 @@ if (isset($_GET['button'])) {
         <?php
         while($rows=$result->fetch_assoc())
         {
-            ?>
-            <tr>
-                <td><?php echo "<img src='../images/" . $rows['listingImgID'] . "." . $rows['listingImgType'] . "'width='300' height='200'>  </img>";?></td>
-                <td><?php echo $rows['listingTitle'];?></td>
-                <td><?php echo $rows['listingAddress'];?></td>
-                <td><?php echo $rows['listingRooms'];?></td>
-                <td><?php echo $rows['listingArea'] . "m<sup>2</sup>";?></td>
-                <td><?php echo $rows['listingPrice'] . "kr";?></td>
-                <td><form action='ListingDetails.php' method='get'><button type='submit' name='listingID' value='<?php echo $rows['listingID']?>'>Se hus</button></form></td>
-            </tr>
-            <?php
+            echo"
+            <tr class='listingLine'>
+                <td> <img src='../images/" . $rows['listingImgID'] . "." . $rows['listingImgType'] . "'width='300' height='200'>  </img></td>
+                <td>" . $rows['listingTitle'] . "</td>
+                <td>" . $rows['listingAddress'] . "</td>
+                <td>" . $rows['listingRooms'] . "</td>
+                <td>" . $rows['listingArea'] . "m<sup>2</sup>" . "</td>
+                <td>" . $rows['listingPrice'] . "kr" . "</td>
+                <td><form action='ListingDetails.php' method='get'><button type='submit' name='listingID' value='" . $rows['listingID'] ."'>Se hus</button></form></td>
+                </tr>
+                ";
         }
         ?>
     </table>
