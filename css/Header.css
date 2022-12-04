@@ -1,5 +1,13 @@
+body {
+    background-color: #8b8bff;
+    margin: 0;
+    padding: 0;
+}
+
 .headerStyle {
-    border: 1px solid black;
+    border-bottom: 5px solid black;
+    background-color: white;
+    padding: 5px;
 }
 
 .headerStyle > span > li{

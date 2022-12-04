@@ -2,7 +2,7 @@
 include_once "../Utilities/DatabaseConnection.php";
 
 session_start();
-if(isset($_SESSION["user"])) header("location: Homepage.php");
+if(isset($_SESSION["user"])) header("location: Listings.php");
 
 if(isset($_REQUEST["login_button"])) {
     $email = strip_tags($_REQUEST["email"]);

@@ -85,12 +85,15 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
 
 
+
+
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="NO">
 <head>
     <link rel="stylesheet" href="../css/ListingDetails.css">
+    <title>Details</title>
 </head>
 <body>
 <main>
@@ -148,7 +151,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             if(!$listingMainImg) {
                 echo "<form>
                     <input name='listingImageID' hidden type='text' value='$listingImageID' />
-                    <img class='secondayImage' src='$imagePath' />
+                    <img class='secondayImage' src='$imagePath'/>
                     <p>$listingImgDesc</p>
                     <button name='delete_image_btn' type='submit'>Delete</button>
                 </form>";
@@ -158,8 +161,12 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
 
             echo "</div>";
-            echo "<h1>$listingTitle</h1>
-                  <p>Månedsleie: $listingPrice kr pr/mnd</p>
+            echo "<span><h1>$listingTitle ";
+            echo "The user id is $listingUserID";
+            if ($listingUserID != $userID ) {
+                echo "<form action='Messages.php' method='get'><button type='submit' name='ID' value='" . $listingUserID . "'> Opprett Samtale </form></button>";
+            }
+            echo  "</h1></span><p>Månedsleie: $listingPrice kr pr/mnd</p>
                   <p>Areal: $listingArea kvadratmeter</p>
                   <h2>Description:</h2>
                   <p>$listingDesc</p>
@@ -291,12 +298,8 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
         <button type="submit" name="create_listing_btn">Save</button>
     </form>';
-            }
-        }
-
-
-        echo '<h2>Add image</h2>';
-        echo "<form action='listingDetails.php' method='post' enctype='multipart/form-data'>
+                echo '<h2>Add image</h2>';
+                echo "<form action='listingDetails.php' method='post' enctype='multipart/form-data'>
                 <input type='text' hidden value='$listingID' name='listingID' />
                 <label for='imgDesc'>Image description</label>
                 <input type='text' name='imgDesc' id='imgDesc'><br>
@@ -306,11 +309,9 @@ if(isset($_REQUEST["delete_image_btn"])) {
                 <button type='submit' name='add_image_btn'>Submit</button>
           </form>";
             }
-
-    ?>
-
+        }
+    }
+?>
 </main>
-
 </body>
 </html>
-

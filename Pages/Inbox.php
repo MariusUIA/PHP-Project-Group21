@@ -4,9 +4,6 @@ include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
 include_once "../Utilities/Header.php";
 
-if (isset($_GET['userID'])) {
-    header("location: Messages.php?ID=" . $_GET['userID']);
-}
 
 $recieverID = $_SESSION["user"]["userID"];
 $result = mysqli_query($connection, "SELECT senderID FROM Messages WHERE recieverID = '$recieverID' GROUP BY senderID");
