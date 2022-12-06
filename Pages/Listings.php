@@ -3,13 +3,13 @@ include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
 include_once "../Utilities/Header.php";
 
-
+//Hvis ingen filter valgt, bruker den default query.
 if (!isset($_POST['submit'])) {
     $queryTest = "SELECT * FROM listings INNER JOIN listingimages ON listings.listingID=listingimages.listingID WHERE listingimages.listingMainImg = 1";
-    //$queryUnused = "SELECT * FROM listings";
     $result = mysqli_query($connection, $queryTest);
 }
 
+//Hvis filter er valgt, legg til "AND WHERE" til SQL query per valgt filter.
 if (isset($_POST['submit'])) {
     $search = $_POST['search'];
     $sortSelect = $_POST['sort'];
@@ -112,6 +112,7 @@ if (isset($_GET['button'])) {
             <th></th>
         </tr>
         <?php
+        //For hvert resultat av tidligere query, vis de i tabell.
         while($rows=$result->fetch_assoc())
         {
             echo"

@@ -7,17 +7,19 @@ include_once "../Utilities/Header.php";
 $senderID = $_GET['ID'];
 $recieverID = $_SESSION["user"]["userID"];
 
-
+//Henter navn til senderen av meldingene.
 $sInfo = mysqli_query($connection, "SELECT firstName, lastName FROM user where userID = '$senderID'");
 $sArray = $sInfo->fetch_assoc();
+//Hvis sender ikke finnes, gå til Inbox
 if (!isset($sArray)){
     header("location: Inbox.php");
 }
 $senderName = implode(" ", $sArray);
 
-
+//Henter navn til mottakeren av meldingene (deg selv).
 $rInfo = mysqli_query($connection, "SELECT firstName, lastName FROM user where userID = '$recieverID'");
 $rArray = $rInfo->fetch_assoc();
+//Hvis mottaker ikke finnes, gå til Inbox
 if (!isset($rArray)){
     header("location: Inbox.php");
 }
@@ -41,11 +43,12 @@ $messages = mysqli_query($connection,"SELECT messageText, messageTime, recieverI
             <th></th>
         </tr>
         <?php
+        //Går gjennom hver melding, basert på hvem som sendte meldingen.
         while($rows=$messages->fetch_assoc()){
             if ($rows['senderID'] == $recieverID){
-                echo '<a>' . $recieverName . '&nbsp &nbsp &nbsp &nbsp' . $rows['messageTime'] . '</a></br>';// trenger CSS for å plassere til venstre
+                echo '<a>' . $recieverName . '&nbsp &nbsp &nbsp &nbsp' . $rows['messageTime'] . '</a></br>';
             } elseif ($rows['senderID'] == $senderID){
-                echo '<a>' . $senderName . '&nbsp &nbsp &nbsp &nbsp' . $rows['messageTime'] . '</a></br>'; // trenger CSS for å plassere til høyre
+                echo '<a>' . $senderName . '&nbsp &nbsp &nbsp &nbsp' . $rows['messageTime'] . '</a></br>';
             }
             echo '<a> ' .$rows['messageText'].'</a></br>';
             echo '</br>';
