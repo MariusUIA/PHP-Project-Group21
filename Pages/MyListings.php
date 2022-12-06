@@ -33,7 +33,7 @@ if (isset($_GET['button'])) {
 if($result->num_rows > 0) {
 while($row = $result->fetch_assoc()) {
     $imageType = $row["listingImgType"];
-    $image = "../images/" . $row['listingID'] . "." . $imageType;
+    $image = "../images/" . $row['listingImgID'] . "." . $imageType;
     $title = $row["listingTitle"];
     $type = $row["listingType"];
     $address = $row["listingAddress"];

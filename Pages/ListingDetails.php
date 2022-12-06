@@ -73,19 +73,11 @@ if(isset($_REQUEST["add_image_btn"])) {
 
 if(isset($_REQUEST["delete_image_btn"])) {
     $listingImageID = filter_var($_REQUEST["listingImageID"]);
-    echo "$listingImageID";
-
 
     deleteImageLocally($connection, $listingImageID);
     deleteImage($connection, $listingImageID);
 
-
 }
-
-
-
-
-
 
 ?>
 
@@ -149,7 +141,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $listingMainImg = $row2["listingMainImg"];
             $imagePath = "../images/" . $listingImageID . "." . $listingImageType;
             if(!$listingMainImg) {
-                echo "<form>
+                echo "<form action='ListingDetails.php' method='post'>
                     <input name='listingImageID' hidden type='text' value='$listingImageID' />
                     <img class='secondayImage' src='$imagePath'/>
                     <p>$listingImgDesc</p>
@@ -162,7 +154,6 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
             echo "</div>";
             echo "<span><h1>$listingTitle ";
-            echo "The user id is $listingUserID";
             if ($listingUserID != $userID ) {
                 echo "<form action='Messages.php' method='get'><button type='submit' name='ID' value='" . $listingUserID . "'> Opprett Samtale </form></button>";
             }
@@ -229,7 +220,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             }
             if($listingUserID === $userID) {
                 echo '<h2>Edit listing</h2>';
-                echo '<form class="createListingForm" action="listingDetails.php" method="post" enctype="multipart/form-data">
+                echo '<form class="createListingForm" action="ListingDetails.php" method="post" enctype="multipart/form-data">
 
         <input name="listingID" type="text" value='.$listingID.' hidden />
         
@@ -299,7 +290,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
         <button type="submit" name="create_listing_btn">Save</button>
     </form>';
                 echo '<h2>Add image</h2>';
-                echo "<form action='listingDetails.php' method='post' enctype='multipart/form-data'>
+                echo "<form action='ListingDetails.php' method='post' enctype='multipart/form-data'>
                 <input type='text' hidden value='$listingID' name='listingID' />
                 <label for='imgDesc'>Image description</label>
                 <input type='text' name='imgDesc' id='imgDesc'><br>

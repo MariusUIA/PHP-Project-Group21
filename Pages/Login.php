@@ -47,5 +47,6 @@ DEFAULT LOGIN 2: test2@test.com og passord test2. </br>
     <input name='pass' type='password' /><br>
     <button type='submit' name="login_button">Log in</button>
 </form>
+<a href="/PHP-Project-Group21/Pages/Register.php">Register an Account</a>
 </body>
 </html>
