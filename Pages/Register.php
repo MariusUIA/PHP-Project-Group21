@@ -24,7 +24,6 @@ if (isset($_POST['registrer'])) {
     //Hvis ingen av feltene er tomme, lagrer koden brukerinformasjonen i array og skriver.
     if (!empty($_POST['pass']) && !empty($_POST['fnavn']) && !empty($_POST['enavn']) && !empty($_POST['epost']) && !empty($_POST['tlf']) && !empty($_POST['fdato'])) {
 
-
         $pass = strip_tags($_POST['pass']);
         $fnavn = $_POST['fnavn'];
         $enavn = $_POST['enavn'];

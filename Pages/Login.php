@@ -14,6 +14,7 @@ if(isset($_REQUEST["login_button"])) {
     if (empty($pass)) {
         echo("<p> Password Required </p>");
     }
+
     if(!empty($email) && !empty($pass)) {
         $sql = "SELECT * FROM user WHERE email = '$email'";
         $result = $connection->query($sql);

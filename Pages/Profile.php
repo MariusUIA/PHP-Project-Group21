@@ -17,7 +17,6 @@ if(isset($_REQUEST["edit_profile_btn"])) {
     $hashed = password_hash($pass, PASSWORD_DEFAULT);
 
     $sql = "UPDATE user SET firstName = ?, lastName = ?, pass = ?, email = ?, phone = ?, study = ?, birthDate = ? WHERE userID = '$userID'";
-
     $test = $connection->prepare($sql);
     $test->bind_param('ssssiss', $firstName, $lastName, $hashed, $email, $phone, $study, $birthDate);
     $test->execute();
@@ -40,7 +39,6 @@ if(isset($_REQUEST["edit_profile_btn"])) {
 
 <?php
 $sql = "SELECT * FROM user WHERE userID = '$userID'";
-
 $result = $connection->query($sql);
 if($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

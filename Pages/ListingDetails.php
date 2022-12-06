@@ -1,16 +1,13 @@
 <?php
-
 $listingID = "";
 if(isset($_GET['listingID'])) {
     $listingID = $_GET['listingID'];
 }
-
 include_once "../Utilities/DatabaseConnection.php";
 include_once "../Utilities/SessionHandler.php";
 include_once "../Utilities/Header.php";
 include_once "../functions/updateListing.php";
 include_once "../functions/imageFunctions.php";
-
 
 $userID = $_SESSION["user"]["userID"];
 
@@ -25,29 +22,17 @@ if(isset($_REQUEST["create_listing_btn"])) {
     $type = filter_var($_REQUEST["type"]);
 
     $petAllowed = +isset($_REQUEST["petAllowed"]);
-
     $hasParking = +isset($_REQUEST["hasParking"]);
-
     $hasShed = +isset($_REQUEST["hasShed"]);
-
     $isFurnished = +isset($_REQUEST["isFurnished"]);
-
     $hasAppliances = +isset($_REQUEST["hasAppliances"]);
-
     $hasBalcony = +isset($_REQUEST["hasBalcony"]);
-
     $hasGarden = +isset($_REQUEST["hasGarden"]);
-
     $wcFriendly = +isset($_REQUEST["wcFriendly"]);
-
     $incElectricity = +isset($_REQUEST["incElectricity"]);
-
     $incWifi = +isset($_REQUEST["incWifi"]);
-
     $canSmoke = +isset($_REQUEST["canSmoke"]);
-
     $forMen = +isset($_REQUEST["forMen"]);
-
     $forWomen = +isset($_REQUEST["forWomen"]);
 }
 
@@ -58,25 +43,18 @@ if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['ad
 }
 
 if(isset($_REQUEST["add_image_btn"])) {
-
     $listingID = filter_var($_REQUEST["listingID"]);
     $imgDesc = filter_var($_REQUEST["imgDesc"]);
     $imageFileArr = explode(".", basename($_FILES["imageUpload"]["name"]), 2);
     $imageType = $imageFileArr[1];
-
-
     addImage($connection, $imgDesc, $imageType, $listingID);
     addImageLocally($connection, $imageType);
-
-
 }
 
 if(isset($_REQUEST["delete_image_btn"])) {
     $listingImageID = filter_var($_REQUEST["listingImageID"]);
-
     deleteImageLocally($connection, $listingImageID);
     deleteImage($connection, $listingImageID);
-
 }
 
 ?>
@@ -89,8 +67,6 @@ if(isset($_REQUEST["delete_image_btn"])) {
 </head>
 <body>
 <main>
-
-
     <?php
     $sql = "SELECT * FROM listings WHERE listingID = '$listingID'";
     $result = $connection->query($sql);
@@ -120,6 +96,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             if($row["forMen"]) array_push($tagsArray, "For men");
             if($row["forWomen"]) array_push($tagsArray, "For women");
 
+            //Henter og viser hovedbilde og tittel
             $sql3 = "SELECT * FROM listingimages WHERE listingID = '$listingID' AND listingMainImg = 1";
             $result3 = $connection->query($sql3);
             if ($result3->num_rows > 0) {
@@ -130,7 +107,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
                   <div class='secondaryImages'>";
             }
 
-
+    //Henter og viser sekundærbilder
     $sql2 = "SELECT * FROM listingimages WHERE listingID = '$listingID'";
     $result2 = $connection->query($sql2);
     if ($result2->num_rows > 0) {
@@ -150,8 +127,6 @@ if(isset($_REQUEST["delete_image_btn"])) {
             }
         }
     }
-
-
             echo "</div>";
             echo "<span><h1>$listingTitle ";
             if ($listingUserID != $userID ) {
@@ -174,6 +149,7 @@ if(isset($_REQUEST["delete_image_btn"])) {
             $hybel = "";
             $bofelleskap = "";
 
+            //Krysser a checkboxer dersom Listingen har det
             $petAllowed = "";
             if($row["petAllowed"]) $petAllowed = "checked";
 
@@ -218,6 +194,8 @@ if(isset($_REQUEST["delete_image_btn"])) {
             } else {
                 $bofelleskap = "selected";
             }
+
+            //Viser instillinger dersom Listingen tilhører innlogget bruker
             if($listingUserID === $userID) {
                 echo '<h2>Edit listing</h2>';
                 echo '<form class="createListingForm" action="ListingDetails.php" method="post" enctype="multipart/form-data">
@@ -289,6 +267,8 @@ if(isset($_REQUEST["delete_image_btn"])) {
 
         <button type="submit" name="create_listing_btn">Save</button>
     </form>';
+
+                //Form for upload av sekundær bilder
                 echo '<h2>Add image</h2>';
                 echo "<form action='ListingDetails.php' method='post' enctype='multipart/form-data'>
                 <input type='text' hidden value='$listingID' name='listingID' />
