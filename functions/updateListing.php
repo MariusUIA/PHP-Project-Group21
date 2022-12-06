@@ -1,5 +1,4 @@
 <?php
-
 function updateListing($connection, $listingID, $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
 $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly, $incElectricity, $incWifi, $canSmoke,
 $forMen, $forWomen, $userID) {
@@ -8,7 +7,6 @@ $forMen, $forWomen, $userID) {
                     listingPrice = ?, listingArea = ?, petAllowed = ?, hasParking = ?, hasShed = ?, isFurnished = ?, 
                     hasAppliances = ?, hasBalcony = ?, hasGarden = ?, wcFriendly = ?, incElectricity = ?, incWifi = ?, canSmoke = ?,
                       forMen = ?, forWomen = ?, userID = ? WHERE listingID = '$listingID'";
-
     $test = $connection->prepare($sql);
     $test->bind_param('sssisiiiiiiiiiiiiiiii', $title, $description, $address, $rooms, $type, $price, $area, $petAllowed,
         $hasParking, $hasShed, $isFurnished, $hasAppliances, $hasBalcony, $hasGarden, $wcFriendly,
