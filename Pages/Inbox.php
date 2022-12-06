@@ -9,7 +9,7 @@ $recieverID = $_SESSION["user"]["userID"];
 $result = mysqli_query($connection, "SELECT senderID FROM Messages WHERE recieverID = '$recieverID' GROUP BY senderID");
 
 
-
+//Finner senderens navn og nyligste melding sendt fra de.
 function getUserInfo($senderID, $recieverID, $connection): void{
     $userQ = mysqli_query($connection,"SELECT userID, firstName, lastName FROM User where userID = '$senderID'");
     $userRows=$userQ->fetch_assoc();
@@ -40,6 +40,7 @@ function getUserInfo($senderID, $recieverID, $connection): void{
             <th>Melding fra</th>
         </tr>
         <?php
+        //For hver person som har sendt melding til brukeren, finn deres informasjon.
         while($rows=$result->fetch_assoc())
         {
             getUserInfo($rows['senderID'], $recieverID, $connection);

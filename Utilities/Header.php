@@ -3,7 +3,6 @@
     <div class="headerStyle">
                 <?php
                 echo '<span>';
-                //echo '<li> <a href="../Pages/Homepage.php"> Hjemmeside </a></li>';
                 echo '<li> <a href="../Pages/Listings.php"> Annonser </a></li>';
                 if ($_SESSION['user']['isStudent'] == 0) {
                     echo '<li> <a href="../Pages/MyListings.php"> Dine Annonser </a></li>';

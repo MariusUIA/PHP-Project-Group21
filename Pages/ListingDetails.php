@@ -129,9 +129,11 @@ if(isset($_REQUEST["delete_image_btn"])) {
     }
             echo "</div>";
             echo "<span><h1>$listingTitle ";
+            //Hvis det er en annen person sin annonse, gi muligheten til å sende de melding.
             if ($listingUserID != $userID ) {
                 echo "<form action='Messages.php' method='get'><button type='submit' name='ID' value='" . $listingUserID . "'> Opprett Samtale </form></button>";
             }
+
             echo  "</h1></span><p>Månedsleie: $listingPrice kr pr/mnd</p>
                   <p>Areal: $listingArea kvadratmeter</p>
                   <h2>Description:</h2>

@@ -1,4 +1,5 @@
 <?php
+//Legger til bildet til databasen.
 function addImage($connection, $imgDesc, $imageType, $listingID) {
     $sql = "INSERT INTO listingimages (listingImgDesc, listingImgType, listingID) VALUES (?,?, ?)";
     $test = $connection->prepare($sql);
@@ -6,6 +7,7 @@ function addImage($connection, $imgDesc, $imageType, $listingID) {
     $test->execute();
 }
 
+//Legger til bildet til lokal lagring.
 function addImageLocally($connection, $imageType) {
     $sql = "SELECT * FROM listingimages ORDER BY listingImgID DESC";
     $result = $connection->query($sql);
@@ -17,12 +19,14 @@ function addImageLocally($connection, $imageType) {
     }
 }
 
+//Sletter bildet fra databasen.
 function deleteImage($connection, $listingImageID) {
     $sql = "DELETE FROM listingimages WHERE listingImgID = '$listingImageID'";
     $test = $connection->prepare($sql);
     $test->execute();
 }
 
+//Sletter bildet lokalt.
 function deleteImageLocally($connection, $listingImageID) {
     $sql = "SELECT * FROM listingimages WHERE listingImgID = $listingImageID";
     $result = $connection->query($sql);

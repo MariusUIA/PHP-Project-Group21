@@ -27,6 +27,7 @@ if(isset($_REQUEST["create_listing_btn"])) {
     $forWomen = +isset($_REQUEST["forWomen"]);
 }
 
+//Hvis alt er fylt inn, legg til variablene i databasen.
 if(!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['address']) && !empty($_POST['rooms'])) {
     $sql = "INSERT INTO listings (listingTitle, listingDesc, listingAddress, listingRooms, listingType, listingPrice, listingArea, petAllowed, hasParking,
                       hasShed, isFurnished, hasAppliances, hasBalcony, hasGarden, wcFriendly, incElectricity, incWifi, canSmoke,

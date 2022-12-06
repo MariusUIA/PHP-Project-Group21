@@ -39,8 +39,8 @@ mysqli_close($connection);
     <title>Login</title>
 </head>
 <body>
-DEFAULT LOGIN: test@test.com og passord test123. </br>
-DEFAULT LOGIN 2: test2@test.com og passord test2. </br>
+EKSEMPEL BRUKER 1: test@test.com og passord test123. </br>
+EKSEMPEL BRUKER 2: test2@test.com og passord test2. </br>
 <form action='Login.php' method='post'>
     <label for='email'>Email: </label>
     <input name='email' type='text' /><br>
